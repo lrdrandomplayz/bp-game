@@ -17,8 +17,6 @@ The "Original" column is a dev note only. Player-facing text uses the in-game te
 | Mog | Outshine |
 | Hunter eyes | Hunter Eyes |
 | Mewing | Mewing |
-| Bonesmashing (trap) | Brick Smash |
-| Steroids (trap) | Mystery Juice |
 | Hypergamy | HyperScale |
 | Game / getting girls | Rizz. Attention meter is called Clout. |
 | Height / Width / Looks | Studs / Hitbox / Avatar Rating |
@@ -121,10 +119,10 @@ Gate rewards. Same on every line.
 | Lunch Table Larry | LTR | Runs the popular lunch table. |
 | Tyler | LTR | Top Blox Lite. Captain of everything. Hates competition. |
 | Nana | Sub 5 Noob | Your grandma. Thinks you are the most handsome boy alive. |
-| Kai | Sub 5 Noob | A Noob who took the shortcut and crashed. Now grinds the slow way. |
+| Kai | Sub 5 Noob | A Noob who ran the Stat Exploit and got wiped. Now grinds the slow way. |
 | Dre | Sub 5 Noob | Gym regular. 40, built like a vending machine, nicest guy there. |
 | Brock | Sub 5 Noob | The hallway bully. |
-| The Shortcut Salesman | Sub 5 Noob | Long coat. Sells Mystery Juice at the bus stop. |
+| The Shortcut Salesman | Sub 5 Noob | Long coat. Runs a fake Free Stats Generator at the bus stop. |
 | Vera | Top Blox | Your agent since you were in diapers. |
 | Jamie | Top Blox | The only kid who asked you to play. Still asks. |
 | Lena | Top Blox | Works at the coffee shop near the studio. The girl who laughed. |
@@ -286,18 +284,19 @@ Gate: **Brock the Hallway Bully**. Needs Studs 30, Avatar Rating 24, Friends 15.
 - You start searching for a cure. "How to fix face." "How to grow taller." "Why am I like this."
 - At 2 AM, you find the Bloxpill forums.
 - **BrickPilled99:** only looks matter. all the time. accept it.
-- **BrickPilled99:** your bone structure is cooked. only way out is brick smash and mystery juice.
+- **BrickPilled99:** your bone structure is cooked. grinding is cope. only way out is the stat exploit.
+- He pins a link. STAT_EXPLOIT_V3. +25 Avatar Rating. Undetected.
 - The thread has 900 replies. Most of them agree.
 - One reply is different. Username: kai_was_here.
-- **Kai:** don't. i did the shortcut. ask me how it went.
-- You open his profile. His last progress pic is from a year ago. Then nothing.
+- **Kai:** don't. i ran the exploit. ask me how it went.
+- You open his profile. One post: "stats wiped. account flagged. starting over from zero."
 - **Coach K Shamblox:** Your face isn't cooked. Your routine is. Sleep, skin, gym. Show up.
 - **Coach K Shamblox:** That's softmaxxing. Slow, but it never backfires.
 - The video sits in the sidebar, next to the forum link.
 
 Choice: The forum links glow on your screen. What do you do?
 
-- Take the shortcut. Brick Smash. (TRAP: Brick Smash) BrickPilled99: "finally. welcome to the real ones."
+- Run the Stat Exploit. (TRAP: Stat Exploit) BrickPilled99: "finally. welcome to the real ones."
 - Message Kai back. (+5 Friends) Kai: "glad you asked. don't do it. grind with me instead."
 - Close the forums. Watch Coach K Shamblox. (+2 Avatar Rating) Coach K Shamblox: "Day one starts now."
 
@@ -314,7 +313,7 @@ Gate: **Forum Mod BrickPilled99**. Needs Hitbox 30, Avatar Rating 30.
 - Dre is 40, built like a vending machine, and the nicest guy at the gym.
 - Day 20. Brock still calls you Noob. You still show up.
 - **Kai:** bro your skin looks better. for real.
-- Kai crashed after the shortcut. Now he grinds the slow way too.
+- Kai got wiped after the exploit. Now he grinds the slow way too.
 - **Nana:** You look happy. That's the most handsome I've seen you.
 - **BLOXED Store Clerk:** BLOXED Face Wash is half off for first timers.
 - **Kai:** softmaxx got me back to where i was. it won't get me past it.
@@ -338,12 +337,12 @@ Gate: **Mirror You**. Needs Studs 45, Hitbox 45, Avatar Rating 50, Friends 30.
 - Day 100. Kids at school stop calling you Noob. Some don't recognize you.
 - **Brock:** ...Bro, did you switch schools and come back?
 - At the bus stop, a man in a long coat waves you over.
-- **The Shortcut Salesman:** Psst. Mystery Juice. Fast Hitbox. One bottle and you skip months.
+- **The Shortcut Salesman:** Psst. Free Stats Generator. Type your username and password, get +25 Hitbox. Skip months.
 - **Kai:** that's the guy. that's the exact guy.
 
-Choice: The Shortcut Salesman holds out a bottle.
+Choice: The Shortcut Salesman holds out a phone with a login screen.
 
-- Take the Mystery Juice. (TRAP: Mystery Juice) The Shortcut Salesman: "Smart kid. No refunds."
+- Type your password into the generator. (TRAP: Free Stats Generator) The Shortcut Salesman: "Smart kid. No refunds."
 - Walk away with Kai. (+5 Friends) Kai: "proud of you. fr."
 
 Gate: **The Shortcut Salesman**. Needs Studs 58, Hitbox 55, Avatar Rating 66.
@@ -492,11 +491,11 @@ Gate: **Dax Velour, Old Rival Model**. Needs Studs 80, Hitbox 75, Avatar Rating 
 
 ## Trap routes
 
-Only the Sub 5 Noob gets offered the shortcut: Brick Smash in chapter 2 (the forums) and Mystery Juice in chapter 4 (the Shortcut Salesman). Each gives +25 to one stat and sets a flag. Traps never show up as grind actions.
+Only the Sub 5 Noob gets offered the shortcut: the Stat Exploit in chapter 2 (BrickPilled99's forum link) and the Free Stats Generator in chapter 4 (the Shortcut Salesman). Each gives +25 to one stat and sets a flag. Traps never show up as grind actions. Both are scams Roblox players know, so the warning carries over to real life.
 
 In the Boss Realm, any trap flag triggers a roll:
 
-- 97%: the trap ending plays. Brick Smash leads to "Brick Smashed" (checked first). Mystery Juice leads to "Juice Crash". HyperScale wins.
+- 97%: the trap ending plays. The Stat Exploit leads to "Exploit Patched" (checked first). The Free Stats Generator leads to "Scammed". HyperScale wins.
 - 3%: Lucky Rebirth. He still has to beat all three bosses.
 
 Tune the chance with `SHORTCUT_REBIRTH_CHANCE`.
@@ -520,8 +519,8 @@ Beat all three and the scale tips back to normal. HyperScale stops existing.
 | The Scale Tips Back | True | No trap used, beat all three bosses. |
 | Real Friends | Bonus | Top Blox line, beat all three bosses, Friends 50+. Story choices give up to 35, so extra Hang Outs are needed. |
 | Lucky Rebirth | Rare | Sub 5 Noob used a trap, won the 3% roll, beat all three bosses. |
-| Brick Smashed | Bad | Used Brick Smash and lost the roll. |
-| Juice Crash | Bad | Used Mystery Juice only and lost the roll. |
+| Exploit Patched | Bad | Ran the Stat Exploit and lost the roll. |
+| Scammed | Bad | Used the Free Stats Generator only and lost the roll. |
 | Glitched | Lose | Slider Clinic scars made the bosses unreachable. No retry. Start a new run. |
 | Not Enough Studs | Lose | A stat fell below a boss requirement. Grind more and retry. |
 
@@ -542,21 +541,23 @@ Beat all three and the scale tips back to normal. HyperScale stops existing.
 
 ### Lucky Rebirth
 
-- You took the shortcut and somehow made it.
+- You took the shortcut, and somehow it never got patched for you.
 - You Rebirth and beat HyperScale.
 - The scale tips back to normal.
-- Out of every 100 Noobs who took the shortcut, 97 crashed. You were one of the 3.
+- Out of every 100 Noobs who took the shortcut, 97 got caught. You were one of the 3.
 
-### Brick Smashed
+### Exploit Patched
 
-- Your Avatar Rating spiked, then crashed at the boss gate.
-- HyperScale laughs. The shortcut was part of its plan.
+- At the boss gate, the patch drops.
+- Every stat the exploit touched rolls back, and your account gets flagged.
+- HyperScale laughs. BrickPilled99 was working for it the whole time.
 - HyperScale wins.
 
-### Juice Crash
+### Scammed
 
-- Your Hitbox spiked, then crashed mid fight.
-- HyperScale tips further to the top.
+- Mid fight, you get logged out.
+- Someone else is in your account. The Free Stats Generator was a scam.
+- Your Hitbox resets. HyperScale tips further to the top.
 - HyperScale wins.
 
 ### Glitched

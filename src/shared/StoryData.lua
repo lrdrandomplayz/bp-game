@@ -49,8 +49,8 @@ StoryData.Glossary = {
 	Outshine = "Looking better than someone standing next to you.",
 	HunterEyes = "Sharp, deep set eyes. Top Blox are born with them.",
 	Mewing = "Holding good tongue posture for a sharper jaw.",
-	BrickSmash = "A forum shortcut for your face. A trap.",
-	MysteryJuice = "A forum shortcut for your frame. A trap.",
+	StatExploit = "A forum script that hacks your Avatar Rating. Gets patched. A trap.",
+	FreeStatsGenerator = "A fake site that promises free Hitbox for your password. A scam. A trap.",
 	HyperScale = "The force that sends all the Clout to the top tier.",
 	Rizz = "Your ability to talk to people and get noticed.",
 	Clout = "Attention from the server.",
@@ -105,10 +105,10 @@ StoryData.Characters = {
 	Tyler = { DisplayName = "Tyler", Role = "Top Blox Lite. Captain of everything. Hates competition.", Lines = "LTR" },
 
 	Nana = { DisplayName = "Nana", Role = "Your grandma. Thinks you are the most handsome boy alive.", Lines = "Sub5" },
-	Kai = { DisplayName = "Kai", Role = "A Noob who took the shortcut and crashed. Now grinds the slow way.", Lines = "Sub5" },
+	Kai = { DisplayName = "Kai", Role = "A Noob who ran the Stat Exploit and got wiped. Now grinds the slow way.", Lines = "Sub5" },
 	Dre = { DisplayName = "Dre", Role = "Gym regular. 40, built like a vending machine, nicest guy there.", Lines = "Sub5" },
 	Brock = { DisplayName = "Brock", Role = "The hallway bully.", Lines = "Sub5" },
-	Salesman = { DisplayName = "The Shortcut Salesman", Role = "Long coat. Sells Mystery Juice at the bus stop.", Lines = "Sub5" },
+	Salesman = { DisplayName = "The Shortcut Salesman", Role = "Long coat. Runs a fake Free Stats Generator at the bus stop.", Lines = "Sub5" },
 
 	Vera = { DisplayName = "Vera", Role = "Your agent since you were in diapers.", Lines = "TopBlox" },
 	Jamie = { DisplayName = "Jamie", Role = "The only kid who asked you to play. Still asks.", Lines = "TopBlox" },
@@ -134,18 +134,18 @@ StoryData.GrindActions = {
 	HangOut = { DisplayName = "Hang Out", Stat = { Friends = 5 } },
 
 	-- Traps. Never unlocked for grinding. Only story choices on the Sub 5 Noob line trigger them.
-	BrickSmash = {
-		DisplayName = "Brick Smash",
+	StatExploit = {
+		DisplayName = "Stat Exploit",
 		Stat = { AvatarRating = 25 },
 		Trap = true,
-		Flag = "BrickSmash",
+		Flag = "StatExploit",
 		Lines = { Sub5 = true },
 	},
-	MysteryJuice = {
-		DisplayName = "Mystery Juice",
+	StatGenerator = {
+		DisplayName = "Free Stats Generator",
 		Stat = { Hitbox = 25 },
 		Trap = true,
-		Flag = "MysteryJuice",
+		Flag = "StatGenerator",
 		Lines = { Sub5 = true },
 	},
 }
@@ -492,11 +492,12 @@ StoryData.Lines = {
 					narrate("You start searching for a cure. \"How to fix face.\" \"How to grow taller.\" \"Why am I like this.\""),
 					narrate("At 2 AM, you find the Bloxpill forums."),
 					say("BrickPilled99", "only looks matter. all the time. accept it."),
-					say("BrickPilled99", "your bone structure is cooked. only way out is brick smash and mystery juice."),
+					say("BrickPilled99", "your bone structure is cooked. grinding is cope. only way out is the stat exploit."),
+					narrate("He pins a link. STAT_EXPLOIT_V3. +25 Avatar Rating. Undetected."),
 					narrate("The thread has 900 replies. Most of them agree."),
 					narrate("One reply is different. Username: kai_was_here."),
-					say("Kai", "don't. i did the shortcut. ask me how it went."),
-					narrate("You open his profile. His last progress pic is from a year ago. Then nothing."),
+					say("Kai", "don't. i ran the exploit. ask me how it went."),
+					narrate("You open his profile. One post: \"stats wiped. account flagged. starting over from zero.\""),
 					say("Coach", "Your face isn't cooked. Your routine is. Sleep, skin, gym. Show up."),
 					say("Coach", "That's softmaxxing. Slow, but it never backfires."),
 					narrate("The video sits in the sidebar, next to the forum link."),
@@ -505,7 +506,7 @@ StoryData.Lines = {
 					{
 						Prompt = "The forum links glow on your screen. What do you do?",
 						Options = {
-							{ Text = "Take the shortcut. Brick Smash.", Action = "BrickSmash", Speaker = "BrickPilled99", Reply = "finally. welcome to the real ones." },
+							{ Text = "Run the Stat Exploit.", Action = "StatExploit", Speaker = "BrickPilled99", Reply = "finally. welcome to the real ones." },
 							{ Text = "Message Kai back.", Stat = { Friends = 5 }, Speaker = "Kai", Reply = "glad you asked. don't do it. grind with me instead." },
 							{ Text = "Close the forums. Watch Coach K Shamblox.", Stat = { AvatarRating = 2 }, Speaker = "Coach", Reply = "Day one starts now." },
 						},
@@ -522,7 +523,7 @@ StoryData.Lines = {
 					narrate("Dre is 40, built like a vending machine, and the nicest guy at the gym."),
 					narrate("Day 20. Brock still calls you Noob. You still show up."),
 					say("Kai", "bro your skin looks better. for real."),
-					narrate("Kai crashed after the shortcut. Now he grinds the slow way too."),
+					narrate("Kai got wiped after the exploit. Now he grinds the slow way too."),
 					say("Nana", "You look happy. That's the most handsome I've seen you."),
 					say("Clerk", "BLOXED Face Wash is half off for first timers."),
 					say("Kai", "softmaxx got me back to where i was. it won't get me past it."),
@@ -548,14 +549,14 @@ StoryData.Lines = {
 					narrate("Day 100. Kids at school stop calling you Noob. Some don't recognize you."),
 					say("Brock", "...Bro, did you switch schools and come back?"),
 					narrate("At the bus stop, a man in a long coat waves you over."),
-					say("Salesman", "Psst. Mystery Juice. Fast Hitbox. One bottle and you skip months."),
+					say("Salesman", "Psst. Free Stats Generator. Type your username and password, get +25 Hitbox. Skip months."),
 					say("Kai", "that's the guy. that's the exact guy."),
 				},
 				Choices = {
 					{
-						Prompt = "The Shortcut Salesman holds out a bottle.",
+						Prompt = "The Shortcut Salesman holds out a phone with a login screen.",
 						Options = {
-							{ Text = "Take the Mystery Juice.", Action = "MysteryJuice", Speaker = "Salesman", Reply = "Smart kid. No refunds." },
+							{ Text = "Type your password into the generator.", Action = "StatGenerator", Speaker = "Salesman", Reply = "Smart kid. No refunds." },
 							{ Text = "Walk away with Kai.", Stat = { Friends = 5 }, Speaker = "Kai", Reply = "proud of you. fr." },
 						},
 					},
@@ -776,27 +777,29 @@ StoryData.Endings = {
 		Title = "Lucky Rebirth",
 		Kind = "Rare",
 		Text = {
-			"You took the shortcut and somehow made it.",
+			"You took the shortcut, and somehow it never got patched for you.",
 			"You Rebirth and beat HyperScale.",
 			"The scale tips back to normal.",
-			string.format("Out of every 100 Noobs who took the shortcut, %d crashed. You were one of the %d.", 100 - survivors, survivors),
+			string.format("Out of every 100 Noobs who took the shortcut, %d got caught. You were one of the %d.", 100 - survivors, survivors),
 		},
 	},
-	BrickSmashed = {
-		Title = "Brick Smashed",
+	ExploitPatched = {
+		Title = "Exploit Patched",
 		Kind = "Bad",
 		Text = {
-			"Your Avatar Rating spiked, then crashed at the boss gate.",
-			"HyperScale laughs. The shortcut was part of its plan.",
+			"At the boss gate, the patch drops.",
+			"Every stat the exploit touched rolls back, and your account gets flagged.",
+			"HyperScale laughs. BrickPilled99 was working for it the whole time.",
 			"HyperScale wins.",
 		},
 	},
-	JuiceCrash = {
-		Title = "Juice Crash",
+	Scammed = {
+		Title = "Scammed",
 		Kind = "Bad",
 		Text = {
-			"Your Hitbox spiked, then crashed mid fight.",
-			"HyperScale tips further to the top.",
+			"Mid fight, you get logged out.",
+			"Someone else is in your account. The Free Stats Generator was a scam.",
+			"Your Hitbox resets. HyperScale tips further to the top.",
 			"HyperScale wins.",
 		},
 	},
@@ -1091,10 +1094,10 @@ function StoryData.ResolveEnding(run, rng)
 	rng = rng or math.random
 	local flags = run.Flags
 
-	if flags.BrickSmash or flags.MysteryJuice then
+	if flags.StatExploit or flags.StatGenerator then
 		local lucky = run.Line == "Sub5" and rng() < StoryData.SHORTCUT_REBIRTH_CHANCE
 		if not lucky then
-			return flags.BrickSmash and "BrickSmashed" or "JuiceCrash", {}
+			return flags.StatExploit and "ExploitPatched" or "Scammed", {}
 		end
 		local won, bossId, missingStat = fightAll(run.Stats)
 		if not won then
