@@ -31,6 +31,20 @@ StoryData.SOFT_CAP = 20
 -- Hardmaxxing: the most each fight stat can gain from the Slider Clinic, before scars.
 StoryData.HARD_CAP = 50
 
+-- What a Slider Clinic glitch takes: stat points now, and hardmaxx cap for good.
+-- Scar Repair gives both back.
+StoryData.GLITCH_LOSS = 5
+StoryData.SCAR_PENALTY = 10
+
+-- Energy: every action costs some. It refills over real time, or instantly with Skip Rest.
+StoryData.MAX_ENERGY = 30
+StoryData.ENERGY_REGEN_SECONDS = 20
+StoryData.SOFT_ENERGY_COST = 1
+StoryData.CLINIC_ENERGY_COST = 2
+
+-- Endings that count as beating a line.
+StoryData.WinningEndings = { ScaleTipsBack = true, RealFriends = true, LuckyRebirth = true }
+
 ---------------------------------------------------------------------------
 -- Glossary: player-facing terms
 ---------------------------------------------------------------------------
@@ -168,7 +182,7 @@ StoryData.HardmaxxOutcomes = {
 	{ Id = "Jackpot", Chance = 0.30, Gain = 15, Text = "The slider locks in perfectly. Huge gain." },
 	{ Id = "Clean", Chance = 0.35, Gain = 10, Text = "Clean result. Solid gain." },
 	{ Id = "Flop", Chance = 0.25, Gain = 0, Text = "Nothing changed. Dr. Polygon shrugs." },
-	{ Id = "Glitch", Chance = 0.10, Gain = -5, Scar = 10, Text = "The mesh glitches. You lose 5, and this stat's hardmaxx cap drops by 10 for good." },
+	{ Id = "Glitch", Chance = 0.10, Gain = -StoryData.GLITCH_LOSS, Scar = StoryData.SCAR_PENALTY, Text = "The mesh glitches. You lose 5, and this stat's hardmaxx cap drops by 10 for good." },
 }
 
 ---------------------------------------------------------------------------
@@ -824,6 +838,85 @@ StoryData.Endings = {
 }
 
 ---------------------------------------------------------------------------
+-- Store. Fill in PassId and ProductId from the Creator Hub after creating each one.
+-- Never sell Slider Clinic visits or stats past the caps.
+---------------------------------------------------------------------------
+
+StoryData.Monetization = {
+	GamePasses = {
+		BloxedPlus = {
+			DisplayName = "BLOXED Plus",
+			Price = 249,
+			PassId = 0,
+			Enabled = true,
+			Description = "+1 on every softmaxx action. Softmaxxing goes about twice as fast. The +20 cap stays the same.",
+		},
+		DripRunway = {
+			DisplayName = "Runway Drip Pack",
+			Price = 149,
+			PassId = 0,
+			Enabled = true,
+			Cosmetics = "DripRunway",
+			Description = "Cosmetic. Blazer fit, Spotlight Aura, Runway Walk, silver Crown.",
+		},
+		DripHunter = {
+			DisplayName = "Hunter Eyes Drip Pack",
+			Price = 149,
+			PassId = 0,
+			Enabled = true,
+			Cosmetics = "DripHunter",
+			Description = "Cosmetic. Hunter Shades, Focus Aura, Slow Turn emote, blue Crown.",
+		},
+		DripTopBlox = {
+			DisplayName = "Top Blox Drip Pack",
+			Price = 249,
+			PassId = 0,
+			Enabled = true,
+			Cosmetics = "DripTopBlox",
+			Description = "Cosmetic. White suit, Billboard Aura, Flashbulb emote, gold Crown.",
+		},
+		KaiStory = {
+			DisplayName = "Kai's Story",
+			Price = 299,
+			PassId = 0,
+			Enabled = false, -- Hidden until the line is written.
+			Description = "A fourth storyline. Kai's road back after the exploit wiped him.",
+		},
+	},
+	PassOrder = { "BloxedPlus", "DripRunway", "DripHunter", "DripTopBlox", "KaiStory" },
+
+	DevProducts = {
+		SkipRest = {
+			DisplayName = "Skip Rest",
+			Price = 39,
+			ProductId = 0,
+			Description = "Refill your Energy now.",
+		},
+		ScarRepair = {
+			DisplayName = "Scar Repair",
+			Price = 99,
+			ProductId = 0,
+			NeedsStat = true,
+			Description = "Undo one Slider Clinic glitch on a stat: get back the 5 stat points and the 10 hardmaxx cap. Beating a line for the first time also gives one free.",
+		},
+	},
+	ProductOrder = { "SkipRest", "ScarRepair" },
+
+	NeverSold = {
+		"Slider Clinic visits. Paid rolls with Flop and Glitch outcomes fall under Roblox's gambling policy.",
+		"Stats past the softmaxx or hardmaxx caps.",
+		"Anything that changes another player's run.",
+	},
+}
+
+-- What each Drip Pack contains. Display data for the store UI.
+StoryData.Cosmetics = {
+	DripRunway = { "Runway Fit (black blazer, silver chain)", "Spotlight Aura", "Runway Walk animation", "Silver Crown" },
+	DripHunter = { "Hunter Shades", "Focus Aura (blue)", "Slow Turn emote", "Blue Crown" },
+	DripTopBlox = { "Top Blox Fit (white suit)", "Billboard Aura", "Flashbulb emote", "Gold Crown" },
+}
+
+---------------------------------------------------------------------------
 -- Run state
 ---------------------------------------------------------------------------
 
@@ -849,10 +942,14 @@ local function itemBonus(run, actionId)
 	for itemId in pairs(run.Items) do
 		bonus = bonus + (StoryData.Items[itemId].Bonus[actionId] or 0)
 	end
+	if run.Passes.BloxedPlus then
+		bonus = bonus + 1
+	end
 	return bonus
 end
 
-function StoryData.NewRun(lineId)
+-- now is os.time() on the server. Omit it in tests.
+function StoryData.NewRun(lineId, now)
 	local line = StoryData.Lines[lineId]
 	assert(line, "Unknown line: " .. tostring(lineId))
 	local run = {
@@ -867,6 +964,9 @@ function StoryData.NewRun(lineId)
 		HardGain = {},
 		HardCap = {},
 		Scars = {},
+		Passes = {},
+		Energy = StoryData.MAX_ENERGY,
+		EnergyUpdatedAt = now or 0,
 	}
 	for statId in pairs(StoryData.Stats) do
 		run.Stats[statId] = line.StartingStats[statId] or 0
@@ -885,13 +985,31 @@ function StoryData.GetChapter(run)
 	return StoryData.Lines[run.Line].Chapters[run.Chapter]
 end
 
+-- Add Energy for the time passed since the last refresh. Call before actions.
+function StoryData.RefreshEnergy(run, now)
+	if run.Energy >= StoryData.MAX_ENERGY then
+		run.EnergyUpdatedAt = now
+		return run.Energy
+	end
+	local regained = math.floor((now - run.EnergyUpdatedAt) / StoryData.ENERGY_REGEN_SECONDS)
+	if regained > 0 then
+		run.Energy = math.min(StoryData.MAX_ENERGY, run.Energy + regained)
+		run.EnergyUpdatedAt = run.Energy >= StoryData.MAX_ENERGY and now
+			or run.EnergyUpdatedAt + regained * StoryData.ENERGY_REGEN_SECONDS
+	end
+	return run.Energy
+end
+
 -- Softmaxx once. Fight stat gains stop at SOFT_CAP. Friends has no cap.
--- Returns true, or false plus "Locked" or "SoftCapped".
+-- Returns true, or false plus "Locked", "NoEnergy" or "SoftCapped".
 function StoryData.ApplyAction(run, actionId)
 	local action = StoryData.GrindActions[actionId]
 	assert(action, "Unknown action: " .. tostring(actionId))
 	if action.Trap or not run.Unlocked[actionId] then
 		return false, "Locked"
+	end
+	if run.Energy < StoryData.SOFT_ENERGY_COST then
+		return false, "NoEnergy"
 	end
 	local gains = {}
 	local gained = false
@@ -907,12 +1025,13 @@ function StoryData.ApplyAction(run, actionId)
 	if not gained then
 		return false, "SoftCapped"
 	end
+	run.Energy = run.Energy - StoryData.SOFT_ENERGY_COST
 	addStats(run, gains)
 	return true
 end
 
 -- Hardmaxx once at the Slider Clinic. rng is optional and returns a number in [0, 1).
--- Returns the outcome id and the stat change, or nil plus "Locked" or "HardCapped".
+-- Returns the outcome id and the stat change, or nil plus "Locked", "HardCapped" or "NoEnergy".
 function StoryData.ApplyHardmaxx(run, procedureId, rng)
 	local procedure = StoryData.Procedures[procedureId]
 	assert(procedure, "Unknown procedure: " .. tostring(procedureId))
@@ -924,6 +1043,10 @@ function StoryData.ApplyHardmaxx(run, procedureId, rng)
 	if room <= 0 then
 		return nil, "HardCapped"
 	end
+	if run.Energy < StoryData.CLINIC_ENERGY_COST then
+		return nil, "NoEnergy"
+	end
+	run.Energy = run.Energy - StoryData.CLINIC_ENERGY_COST
 
 	local roll = (rng or math.random)()
 	local outcome = StoryData.HardmaxxOutcomes[#StoryData.HardmaxxOutcomes]
@@ -948,6 +1071,101 @@ function StoryData.ApplyHardmaxx(run, procedureId, rng)
 	local before = run.Stats[statId]
 	addStats(run, { [statId] = change })
 	return outcome.Id, run.Stats[statId] - before
+end
+
+---------------------------------------------------------------------------
+-- Purchases and profile
+---------------------------------------------------------------------------
+
+-- Server calls this after MarketplaceService:UserOwnsGamePassAsync confirms ownership.
+function StoryData.GrantPass(run, passKey)
+	assert(StoryData.Monetization.GamePasses[passKey], "Unknown pass: " .. tostring(passKey))
+	run.Passes[passKey] = true
+end
+
+-- True when buying the product now would do something. Hide the button otherwise.
+function StoryData.CanUseProduct(run, productKey, statId)
+	if productKey == "SkipRest" then
+		return run.Energy < StoryData.MAX_ENERGY
+	elseif productKey == "ScarRepair" then
+		return run.Scars[statId] ~= nil and run.Scars[statId] > 0
+	end
+	error("Unknown product: " .. tostring(productKey))
+end
+
+-- Undo one glitch: the stat points it took and the cap it scarred.
+local function repairScar(run, statId)
+	run.Scars[statId] = run.Scars[statId] - 1
+	run.HardCap[statId] = math.min(StoryData.HARD_CAP, run.HardCap[statId] + StoryData.SCAR_PENALTY)
+	addStats(run, { [statId] = StoryData.GLITCH_LOSS })
+end
+
+-- Apply a developer product. Returns false when it would do nothing.
+-- Check CanUseProduct before prompting. If ProcessReceipt still gets a purchase
+-- that can't apply, call CreditProduct and grant the receipt. Never drop a paid purchase.
+function StoryData.ApplyProduct(run, productKey, statId)
+	if not StoryData.CanUseProduct(run, productKey, statId) then
+		return false
+	end
+	if productKey == "SkipRest" then
+		run.Energy = StoryData.MAX_ENERGY
+	else
+		repairScar(run, statId)
+	end
+	return true
+end
+
+-- Saved per player across runs.
+function StoryData.NewProfile()
+	return { LinesBeaten = {}, EndingsSeen = {}, ScarRepairTokens = 0, SkipRestCredits = 0 }
+end
+
+-- Save a paid product that couldn't apply yet. Scar Repairs join the free tokens.
+function StoryData.CreditProduct(profile, productKey)
+	if productKey == "ScarRepair" then
+		profile.ScarRepairTokens = profile.ScarRepairTokens + 1
+	elseif productKey == "SkipRest" then
+		profile.SkipRestCredits = profile.SkipRestCredits + 1
+	else
+		error("Unknown product: " .. tostring(productKey))
+	end
+end
+
+-- Spend a saved Skip Rest. Returns true, or false plus "NoCredits" or "Full".
+function StoryData.UseSkipRestCredit(profile, run)
+	if profile.SkipRestCredits < 1 then
+		return false, "NoCredits"
+	end
+	if not StoryData.CanUseProduct(run, "SkipRest") then
+		return false, "Full"
+	end
+	profile.SkipRestCredits = profile.SkipRestCredits - 1
+	run.Energy = StoryData.MAX_ENERGY
+	return true
+end
+
+-- Call once per finished run. Returns the free Scar Repairs granted (0 or 1).
+function StoryData.RecordEnding(profile, run, endingId)
+	profile.EndingsSeen[endingId] = true
+	if StoryData.WinningEndings[endingId] and not profile.LinesBeaten[run.Line] then
+		profile.LinesBeaten[run.Line] = true
+		profile.ScarRepairTokens = profile.ScarRepairTokens + 1
+		return 1
+	end
+	return 0
+end
+
+-- Spend a free Scar Repair. Returns true, or false plus "NoTokens" or "NoScar".
+function StoryData.UseScarRepairToken(profile, run, statId)
+	if profile.ScarRepairTokens < 1 then
+		return false, "NoTokens"
+	end
+	if not StoryData.CanUseProduct(run, "ScarRepair", statId) then
+		return false, "NoScar"
+	end
+	profile.ScarRepairTokens = profile.ScarRepairTokens - 1
+	repairScar(run, statId)
+	return true
 end
 
 -- Pick an option in the current chapter. Each choice counts once.

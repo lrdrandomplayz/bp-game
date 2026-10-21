@@ -71,7 +71,7 @@ Every visit is one action and one roll:
 | Flop | 25% | Nothing changed. Dr. Polygon shrugs. |
 | Glitch | 10% | The mesh glitches. You lose 5, and this stat's hardmaxx cap drops by 10 for good. |
 
-A Glitch is permanent. It lowers that stat's hardmaxx cap by 10, and the cap never drops below what you already gained. Enough glitches make a run unwinnable. The game checks `CanStillWin` and shows the Glitched ending when the run can't reach the bosses anymore.
+A Glitch is permanent unless repaired. It lowers that stat's hardmaxx cap by 10, and the cap never drops below what you already gained. Enough glitches make a run unwinnable. The game checks `CanStillWin`. When it turns false, the game offers a free or paid Scar Repair first (see Store), then shows the Glitched ending.
 
 In 10,000 simulated runs per line: LTR wins about 88%, Sub 5 Noob about 70%, Top Blox almost always. Sub 5 Noob survives one glitch per stat, but not two on the same stat.
 
@@ -571,6 +571,47 @@ Beat all three and the scale tips back to normal. HyperScale stops existing.
 - Your stats were not high enough.
 - Grind more and come back.
 
+## Energy
+
+Every action costs Energy: 1 per softmaxx action, 2 per Slider Clinic visit. You hold up to 30. It refills 1 point every 20 seconds, so a full bar takes 10 minutes. Skip Rest refills it instantly. An action that would do nothing (locked or capped) costs nothing.
+
+In simulated winning runs, LTR and Sub 5 Noob spend about 50 to 60 Energy, so they wait about 7 to 10 minutes after their first bar. Hardmaxx-heavy play spends a little less. Top Blox fits in one bar.
+
+## Store
+
+Fill in each `PassId` and `ProductId` in `StoryData.Monetization` after creating it on the Creator Hub (your experience, then Monetization, then Passes or Developer Products). An ID of 0 means not set up yet.
+
+### Game passes (one-time)
+
+| Pass | Robux | What it does |
+|---|---|---|
+| BLOXED Plus | 249 | +1 on every softmaxx action. Softmaxxing goes about twice as fast. The +20 cap stays the same. |
+| Runway Drip Pack | 149 | Cosmetic. Blazer fit, Spotlight Aura, Runway Walk, silver Crown. |
+| Hunter Eyes Drip Pack | 149 | Cosmetic. Hunter Shades, Focus Aura, Slow Turn emote, blue Crown. |
+| Top Blox Drip Pack | 249 | Cosmetic. White suit, Billboard Aura, Flashbulb emote, gold Crown. |
+| Kai's Story | 299 | A fourth storyline. Kai's road back after the exploit wiped him. Hidden until written. |
+
+- **Runway Drip Pack:** Runway Fit (black blazer, silver chain), Spotlight Aura, Runway Walk animation, Silver Crown
+- **Hunter Eyes Drip Pack:** Hunter Shades, Focus Aura (blue), Slow Turn emote, Blue Crown
+- **Top Blox Drip Pack:** Top Blox Fit (white suit), Billboard Aura, Flashbulb emote, Gold Crown
+
+### Developer products (repeatable)
+
+| Product | Robux | What it does |
+|---|---|---|
+| Skip Rest | 39 | Refill your Energy now. |
+| Scar Repair | 99 | Undo one Slider Clinic glitch on a stat: get back the 5 stat points and the 10 hardmaxx cap. Beating a line for the first time also gives one free. |
+
+Roblox charges before `ProcessReceipt` runs, so the game never wastes a purchase. `CanUseProduct` hides Skip Rest on a full bar and Scar Repair on a stat with no scar. If a purchase still arrives when it can't apply (the bar refilled between prompt and receipt), call `CreditProduct` to save it on the profile and grant the receipt. Saved Scar Repairs join the free tokens. Saved Skip Rests are spent with `UseSkipRestCredit`.
+
+Free Scar Repairs: beating a line for the first time (True, Bonus, or Rare ending) grants one, so up to 3 per player.
+
+### Never sold
+
+- Slider Clinic visits. Paid rolls with Flop and Glitch outcomes fall under Roblox's gambling policy.
+- Stats past the softmaxx or hardmaxx caps.
+- Anything that changes another player's run.
+
 ## Run length
 
 Average actions for a winning run in 10,000 simulated runs per line:
@@ -588,12 +629,14 @@ Softmaxxing alone gets LTR and Sub 5 Noob stuck in chapter 3, so they have to vi
 ```lua
 local StoryData = require(game.ReplicatedStorage.Shared.StoryData)
 
-local run = StoryData.NewRun("Sub5")       -- { Line, Chapter, Stats, Flags, Items, Unlocked, SoftGain, HardGain, HardCap, Scars }
+local profile = StoryData.NewProfile()    -- saved per player: LinesBeaten, EndingsSeen, ScarRepairTokens, SkipRestCredits
+local run = StoryData.NewRun("Sub5", os.time())  -- { Line, Chapter, Stats, Flags, Items, Unlocked, SoftGain, HardGain, HardCap, Scars }
 local chapter = StoryData.GetChapter(run)  -- chapter.Scenes, chapter.Choices, chapter.Gate
 
 local option = StoryData.ApplyChoice(run, 1, 2)   -- option.Speaker, option.Reply
-StoryData.ApplyAction(run, "Gym")                 -- softmaxx: false, "Locked" or "SoftCapped"
-local outcomeId, change = StoryData.ApplyHardmaxx(run, "MeshSwap")  -- hardmaxx: nil, "Locked" or "HardCapped"
+StoryData.RefreshEnergy(run, os.time())           -- call before actions
+StoryData.ApplyAction(run, "Gym")                 -- softmaxx: false, "Locked", "NoEnergy" or "SoftCapped"
+local outcomeId, change = StoryData.ApplyHardmaxx(run, "MeshSwap")  -- hardmaxx: nil, "Locked", "HardCapped" or "NoEnergy"
 if not StoryData.CanStillWin(run) then
 	-- show StoryData.Endings.Glitched and offer a new run
 end
@@ -603,6 +646,15 @@ local won, missingStat = StoryData.ChallengeGate(run)  -- win grants items, open
 -- chapter 5 (chapter.BossRealm == true):
 local endingId, info = StoryData.ResolveEnding(run)    -- info.LostTo, info.MissingStat on a loss
 local ending = StoryData.Endings[endingId]             -- ending.Title, ending.Text
+StoryData.RecordEnding(profile, run, endingId)         -- returns free Scar Repairs granted
+
+-- store
+StoryData.GrantPass(run, "BloxedPlus")                 -- after UserOwnsGamePassAsync
+StoryData.CanUseProduct(run, "ScarRepair", "Studs")    -- show or hide the button
+if not StoryData.ApplyProduct(run, "SkipRest") then   -- in ProcessReceipt
+	StoryData.CreditProduct(profile, "SkipRest")       -- save it, then grant the receipt
+end
+StoryData.UseScarRepairToken(profile, run, "Studs")    -- free repair
 ```
 
 `ApplyHardmaxx` takes an optional third argument and `ResolveEnding` an optional second argument, a function returning a number in [0, 1), for testing the roll. Scene and reply speakers are keys in `StoryData.Characters`.
