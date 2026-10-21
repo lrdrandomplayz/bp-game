@@ -25,6 +25,8 @@ The "Original" column is a dev note only. Player-facing text uses the in-game te
 | Real models (bosses) | Shawn O'Pixel, Jordan Bloxett |
 | Looksmaxxing YouTuber | Coach K Shamblox |
 | Product brand | BLOXED |
+| Softmaxxing / Hardmaxxing | Softmaxxing / Hardmaxxing |
+| Cosmetic surgery clinic | Dr. Polygon's Slider Clinic |
 
 Bosses and creator references use parody names. Roblox removes experiences using real people's names and likeness.
 
@@ -40,21 +42,58 @@ Every line has 5 chapters:
 
 Each chapter plays its scenes, then its choices (each choice counts once), then a grind phase. Chapters 1 to 4 end with a mini boss gate. Lose a gate and you keep grinding and retry. Win and you get BLOXED items and the next chapter opens. Chapter 5 resolves the ending.
 
+## Softmaxxing vs hardmaxxing
+
+Two ways to grow Studs, Hitbox, and Avatar Rating.
+
+| | Softmaxxing | Hardmaxxing |
+|---|---|---|
+| What | Grind actions: sleep, skincare, gym, style | Dr. Polygon's Slider Clinic |
+| Speed | Slow. +1 or +2 per action | Fast. About +7.5 per visit on average |
+| Reliable | Always works | Rolls every visit |
+| Ceiling | +20 per stat for the whole run | +50 per stat, minus scars |
+| Unlocks | Chapter 1 on | Chapter 3 |
+
+Softmaxxing lifts you about 1 level. Hardmaxxing lifts you about 3. Friends has no cap. BLOXED items add to softmaxx actions, so they speed softmaxxing up but don't raise its ceiling. Story choices, chapter events, and traps ignore both caps.
+
+### Slider Clinic
+
+| Procedure | Stat |
+|---|---|
+| Height Slider | Studs |
+| Width Slider | Hitbox |
+| Mesh Swap | Avatar Rating |
+
+Every visit is one action and one roll:
+
+| Roll | Chance | Result |
+|---|---|---|
+| Jackpot | 30% | The slider locks in perfectly. Huge gain. |
+| Clean | 35% | Clean result. Solid gain. |
+| Flop | 25% | Nothing changed. Dr. Polygon shrugs. |
+| Glitch | 10% | The mesh glitches. You lose 5, and this stat's hardmaxx cap drops by 10 for good. |
+
+A Glitch is permanent. It lowers that stat's hardmaxx cap by 10, and the cap never drops below what you already gained. Enough glitches make a run unwinnable. The game checks `CanStillWin` and shows the Glitched ending when the run can't reach the bosses anymore.
+
+In 10,000 simulated runs per line: LTR wins about 88%, Sub 5 Noob about 70%, Top Blox almost always. Sub 5 Noob survives one glitch per stat, but not two on the same stat.
+
 ## Stats
 
 All stats cap at 100 and never drop below 0. Studs, Hitbox, and Avatar Rating decide fights. Friends matters for some gates and the Top Blox bonus ending.
 
+### Softmaxx actions
+
 | Action | Gain | Unlocks |
 |---|---|---|
-| Sleep 9 Hours | +2 Studs | Chapter 1 |
+| Sleep 9 Hours | +1 Studs | Chapter 1 |
 | Fix Posture | +1 Studs | Chapter 1 |
 | Drink Water | +1 Avatar Rating | Chapter 1 |
 | Hang Out | +5 Friends | Chapter 1 |
-| Skincare | +2 Avatar Rating | Chapter 2 |
+| Skincare | +1 Avatar Rating | Chapter 2 |
 | Mewing | +1 Avatar Rating | Chapter 2 |
-| Gym | +3 Hitbox | Chapter 2 |
-| New Haircut | +3 Avatar Rating | Chapter 3 |
-| New Fit | +2 Avatar Rating | Chapter 3 |
+| Gym | +2 Hitbox | Chapter 2 |
+| New Haircut | +2 Avatar Rating | Chapter 3 |
+| New Fit | +1 Avatar Rating | Chapter 3 |
 | Stretch | +1 Studs | Chapter 3 |
 
 ## BLOXED items
@@ -75,6 +114,7 @@ Gate rewards. Same on every line.
 |---|---|---|
 | Coach K Shamblox | All | Avatarmaxxing YouTuber. Calm voice, no doom. Teaches the legit routine. |
 | BLOXED Store Clerk | All | Runs the BLOXED Store. Knows every product by heart. |
+| Dr. Polygon | All | Runs the Slider Clinic. Fast results. No guarantees. |
 | BrickPilled99 | LTR, Sub 5 Noob | Bloxpill forum mod. 40,000 posts, zero progress pics. |
 | Milo | LTR | Your best friend since second grade. Also an LTR. |
 | Ava | LTR | Classmate. Borrowed your pencil once. |
@@ -131,6 +171,7 @@ Gate: **Lunch Table Larry**. Needs Studs 42, Avatar Rating 44, Friends 35.
 - **Coach K Shamblox:** Stop watching edits. Start a routine. Sleep, skincare, gym. Every day.
 - Coach K Shamblox. Millions of subs. Calm voice. No doom.
 - **Coach K Shamblox:** The Bloxpill wants you to quit. A routine wants you to show up.
+- **Coach K Shamblox:** This is softmaxxing. Slow. Reliable. It has a ceiling, but it never backfires.
 - You know you have to Rebirth and end this.
 
 Choice: Autoplay loads the next video. Which one do you watch?
@@ -160,6 +201,10 @@ Gate: **Mirror You**. Needs Hitbox 45, Avatar Rating 52, Friends 45.
 - That night you post a progress pic on the forums.
 - **BrickPilled99:** lol cope. bone structure is fixed. it's over for you.
 - Forum Mod BrickPilled99 has 40,000 posts and zero progress pics.
+- Day 50. Your progress slows down. Some days the mirror shows nothing new.
+- A flyer on the bus: DR. POLYGON'S SLIDER CLINIC. SKIP THE GRIND.
+- **Coach K Shamblox:** Softmaxxing has a ceiling. Hardmaxxing breaks the ceiling. Sometimes it breaks you.
+- **Dr. Polygon:** Height Slider, Width Slider, Mesh Swap. Fast results. No guarantees.
 
 Choice: Milo keeps asking. Do you tell him about the grind?
 
@@ -205,7 +250,7 @@ Gate: **Tyler, Top Blox Lite**. Needs Studs 64, Hitbox 62, Avatar Rating 74.
 
 ## Sub 5 Noob Line (Hard)
 
-Start: Studs 25, Hitbox 20, Avatar Rating 15, Friends 10.
+Start: Studs 25, Hitbox 20, Avatar Rating 30, Friends 10.
 
 ### Chapter 1: Default Avatar
 
@@ -230,7 +275,7 @@ Choice: Nana asks how school was.
 - Tell her the truth. (+5 Friends) Nana: "Then we'll fix it. Together. Starting with a good night's sleep."
 - Say it was fine. Nana: "Okay, sweetheart."
 
-Gate: **Brock the Hallway Bully**. Needs Studs 30, Avatar Rating 20, Friends 15.
+Gate: **Brock the Hallway Bully**. Needs Studs 30, Avatar Rating 24, Friends 15.
 
 - Intro: Brock shoves your shoulder. "You gonna do something?"
 - Win: You don't flinch. Brock walks off. The whole hallway saw it.
@@ -247,6 +292,7 @@ Gate: **Brock the Hallway Bully**. Needs Studs 30, Avatar Rating 20, Friends 15.
 - **Kai:** don't. i did the shortcut. ask me how it went.
 - You open his profile. His last progress pic is from a year ago. Then nothing.
 - **Coach K Shamblox:** Your face isn't cooked. Your routine is. Sleep, skin, gym. Show up.
+- **Coach K Shamblox:** That's softmaxxing. Slow, but it never backfires.
 - The video sits in the sidebar, next to the forum link.
 
 Choice: The forum links glow on your screen. What do you do?
@@ -271,6 +317,9 @@ Gate: **Forum Mod BrickPilled99**. Needs Hitbox 30, Avatar Rating 30.
 - Kai crashed after the shortcut. Now he grinds the slow way too.
 - **Nana:** You look happy. That's the most handsome I've seen you.
 - **BLOXED Store Clerk:** BLOXED Face Wash is half off for first timers.
+- **Kai:** softmaxx got me back to where i was. it won't get me past it.
+- **Kai:** the slider clinic is legit. not like the bus stop guy. but it can still glitch you.
+- **Dr. Polygon:** Height Slider, Width Slider, Mesh Swap. Fast results. No guarantees.
 - Day 45. You walk past a mirror and stop.
 
 Choice: Dre invites you to train with his 6 AM crew.
@@ -355,6 +404,7 @@ Gate: **Paparazzi Swarm**. Needs Studs 77, Avatar Rating 87.
 - That night he gets it. She didn't laugh at what he said. She laughed at his Hunter Eyes.
 - HyperScale rules everyone. Even the ones at the top.
 - **Coach K Shamblox:** Looks get you attention. A life gets you people.
+- **Coach K Shamblox:** And if you keep training, softmaxx. Slow and safe.
 - **Vera:** Shoot tomorrow at 5 AM. Cancel whatever you have.
 
 Choice: Vera books a shoot over Jamie's birthday.
@@ -379,6 +429,8 @@ On enter: -12 Hitbox, -15 Avatar Rating.
 - **Coach K Shamblox:** Keep the routine. Gym, sleep, skin. Not for the camera. For you.
 - **BLOXED Store Clerk:** You're THE Top Blox? BLOXED Face Wash is on the house.
 - **You:** I'll pay. Like everyone else.
+- **Vera:** Dr. Polygon can fix that drop in a week. Height Slider, Mesh Swap. Fast.
+- **Dr. Polygon:** Fast results. No guarantees. Even for Top Blox.
 - Jamie brings his friends. They don't care about the followers. They care that he's terrible at kart racing.
 - Late at night, home alone, the mirror finds him.
 
@@ -406,7 +458,7 @@ Choice: Lena apologizes.
 - Accept it. Order a latte. (+5 Friends) Lena: "Oat latte. On me this time."
 - Walk out. Lena: "...Fair."
 
-Gate: **Dax Velour, Old Rival Model**. Needs Studs 80, Hitbox 75, Avatar Rating 90.
+Gate: **Dax Velour, Old Rival Model**. Needs Studs 80, Hitbox 75, Avatar Rating 88.
 
 - Intro: Dax hits the runway first. Flawless. "Your turn."
 - Win: You walk. The crowd forgets Dax is there.
@@ -429,14 +481,14 @@ Gate: **Dax Velour, Old Rival Model**. Needs Studs 80, Hitbox 75, Avatar Rating 
 | LTR Line | 2 | Mirror You | Hitbox 45, Avatar Rating 52, Friends 45 |
 | LTR Line | 3 | Forum Mod BrickPilled99 | Studs 55, Hitbox 55, Avatar Rating 62 |
 | LTR Line | 4 | Tyler, Top Blox Lite | Studs 64, Hitbox 62, Avatar Rating 74 |
-| Sub 5 Noob Line | 1 | Brock the Hallway Bully | Studs 30, Avatar Rating 20, Friends 15 |
+| Sub 5 Noob Line | 1 | Brock the Hallway Bully | Studs 30, Avatar Rating 24, Friends 15 |
 | Sub 5 Noob Line | 2 | Forum Mod BrickPilled99 | Hitbox 30, Avatar Rating 30 |
 | Sub 5 Noob Line | 3 | Mirror You | Studs 45, Hitbox 45, Avatar Rating 50, Friends 30 |
 | Sub 5 Noob Line | 4 | The Shortcut Salesman | Studs 58, Hitbox 55, Avatar Rating 66 |
 | Top Blox Line | 1 | Paparazzi Swarm | Studs 77, Avatar Rating 87 |
 | Top Blox Line | 2 | Agency Boss Vera | Hitbox 73, Friends 15 |
 | Top Blox Line | 3 | Mirror You (Lonely) | Avatar Rating 88, Friends 35 |
-| Top Blox Line | 4 | Dax Velour, Old Rival Model | Studs 80, Hitbox 75, Avatar Rating 90 |
+| Top Blox Line | 4 | Dax Velour, Old Rival Model | Studs 80, Hitbox 75, Avatar Rating 88 |
 
 ## Trap routes
 
@@ -470,6 +522,7 @@ Beat all three and the scale tips back to normal. HyperScale stops existing.
 | Lucky Rebirth | Rare | Sub 5 Noob used a trap, won the 3% roll, beat all three bosses. |
 | Brick Smashed | Bad | Used Brick Smash and lost the roll. |
 | Juice Crash | Bad | Used Mystery Juice only and lost the roll. |
+| Glitched | Lose | Slider Clinic scars made the bosses unreachable. No retry. Start a new run. |
 | Not Enough Studs | Lose | A stat fell below a boss requirement. Grind more and retry. |
 
 ### The Scale Tips Back
@@ -506,6 +559,12 @@ Beat all three and the scale tips back to normal. HyperScale stops existing.
 - HyperScale tips further to the top.
 - HyperScale wins.
 
+### Glitched
+
+- The Slider Clinic glitched you past repair.
+- No amount of grinding reaches the bosses now.
+- HyperScale wins this time. Start a new run.
+
 ### Not Enough Studs
 
 - Your stats were not high enough.
@@ -513,18 +572,30 @@ Beat all three and the scale tips back to normal. HyperScale stops existing.
 
 ## Run length
 
-Fewest grind actions for a full clean run, with perfect choices: Sub 5 Noob 62, LTR 45, Top Blox 16. Top Blox loses 12 Hitbox and 15 Avatar Rating when he leaves the agency in chapter 3. Real players take more, and action cooldowns in the game code set the real playtime.
+Average actions for a winning run in 10,000 simulated runs per line:
+
+| Line | Softmaxx first | Hardmaxx first | Win rate |
+|---|---|---|---|
+| LTR | 47 | 36 | about 88% |
+| Sub 5 Noob | 46 | 35 | about 70% |
+| Top Blox | 22 | 14 | about 100% |
+
+Softmaxxing alone gets LTR and Sub 5 Noob stuck in chapter 3, so they have to visit the clinic. Top Blox can win on softmaxxing alone, even after losing 12 Hitbox and 15 Avatar Rating when he leaves the agency in chapter 3. Action cooldowns in the game code set the real playtime.
 
 ## Code API
 
 ```lua
 local StoryData = require(game.ReplicatedStorage.Shared.StoryData)
 
-local run = StoryData.NewRun("Sub5")       -- { Line, Chapter, Stats, Flags, Items, Unlocked }
+local run = StoryData.NewRun("Sub5")       -- { Line, Chapter, Stats, Flags, Items, Unlocked, SoftGain, HardGain, HardCap, Scars }
 local chapter = StoryData.GetChapter(run)  -- chapter.Scenes, chapter.Choices, chapter.Gate
 
 local option = StoryData.ApplyChoice(run, 1, 2)   -- option.Speaker, option.Reply
-StoryData.ApplyAction(run, "Gym")                 -- false if locked or a trap
+StoryData.ApplyAction(run, "Gym")                 -- softmaxx: false, "Locked" or "SoftCapped"
+local outcomeId, change = StoryData.ApplyHardmaxx(run, "MeshSwap")  -- hardmaxx: nil, "Locked" or "HardCapped"
+if not StoryData.CanStillWin(run) then
+	-- show StoryData.Endings.Glitched and offer a new run
+end
 
 local won, missingStat = StoryData.ChallengeGate(run)  -- win grants items, opens the next chapter
 
@@ -533,4 +604,4 @@ local endingId, info = StoryData.ResolveEnding(run)    -- info.LostTo, info.Miss
 local ending = StoryData.Endings[endingId]             -- ending.Title, ending.Text
 ```
 
-`ResolveEnding` takes an optional second argument, a function returning a number in [0, 1), for testing the roll. Scene and reply speakers are keys in `StoryData.Characters`.
+`ApplyHardmaxx` takes an optional third argument and `ResolveEnding` an optional second argument, a function returning a number in [0, 1), for testing the roll. Scene and reply speakers are keys in `StoryData.Characters`.

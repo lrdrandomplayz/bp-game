@@ -7,7 +7,8 @@
 		local StoryData = require(game.ReplicatedStorage.Shared.StoryData)
 		local run = StoryData.NewRun("Sub5")
 		StoryData.ApplyChoice(run, 1, 2)
-		StoryData.ApplyAction(run, "Sleep")
+		StoryData.ApplyAction(run, "Sleep")                -- softmaxx
+		StoryData.ApplyHardmaxx(run, "MeshSwap")           -- hardmaxx, chapter 3 on
 		local won, missingStat = StoryData.ChallengeGate(run)
 		-- once run.Chapter is 5 (the Boss Realm):
 		local endingId, info = StoryData.ResolveEnding(run)
@@ -23,6 +24,12 @@ StoryData.SHORTCUT_REBIRTH_CHANCE = 0.03
 StoryData.REAL_FRIENDS_THRESHOLD = 50
 
 StoryData.STAT_MAX = 100
+
+-- Softmaxxing: the most each fight stat can gain from grind actions over a run.
+StoryData.SOFT_CAP = 20
+
+-- Hardmaxxing: the most each fight stat can gain from the Slider Clinic, before scars.
+StoryData.HARD_CAP = 50
 
 ---------------------------------------------------------------------------
 -- Glossary: player-facing terms
@@ -49,6 +56,9 @@ StoryData.Glossary = {
 	Clout = "Attention from the server.",
 	BLOXED = "The avatarmaxxing product brand sold at the BLOXED Store.",
 	CoachKShamblox = "Avatarmaxxing YouTuber who teaches the legit routine.",
+	Softmaxxing = "Slow, reliable grinding: sleep, skincare, gym, style. Capped at +20 per stat.",
+	Hardmaxxing = "Fast, risky Slider Clinic procedures. Up to +50 per stat. Can glitch you for good.",
+	SliderClinic = "Dr. Polygon's clinic. Height Slider, Width Slider, Mesh Swap.",
 }
 
 ---------------------------------------------------------------------------
@@ -86,6 +96,7 @@ StoryData.Characters = {
 
 	Coach = { DisplayName = "Coach K Shamblox", Role = "Avatarmaxxing YouTuber. Calm voice, no doom. Teaches the legit routine.", Lines = "All" },
 	Clerk = { DisplayName = "BLOXED Store Clerk", Role = "Runs the BLOXED Store. Knows every product by heart.", Lines = "All" },
+	Polygon = { DisplayName = "Dr. Polygon", Role = "Runs the Slider Clinic. Fast results. No guarantees.", Lines = "All" },
 	BrickPilled99 = { DisplayName = "BrickPilled99", Role = "Bloxpill forum mod. 40,000 posts, zero progress pics.", Lines = "LTR, Sub5" },
 
 	Milo = { DisplayName = "Milo", Role = "Your best friend since second grade. Also an LTR.", Lines = "LTR" },
@@ -110,13 +121,14 @@ StoryData.Characters = {
 ---------------------------------------------------------------------------
 
 StoryData.GrindActions = {
-	Sleep = { DisplayName = "Sleep 9 Hours", Stat = { Studs = 2 } },
+	-- Softmaxxing: small, reliable gains. Fight stats stop at SOFT_CAP.
+	Sleep = { DisplayName = "Sleep 9 Hours", Stat = { Studs = 1 } },
 	Posture = { DisplayName = "Fix Posture", Stat = { Studs = 1 } },
 	Stretch = { DisplayName = "Stretch", Stat = { Studs = 1 } },
-	Gym = { DisplayName = "Gym", Stat = { Hitbox = 3 } },
-	Skincare = { DisplayName = "Skincare", Stat = { AvatarRating = 2 } },
-	Haircut = { DisplayName = "New Haircut", Stat = { AvatarRating = 3 } },
-	Style = { DisplayName = "New Fit", Stat = { AvatarRating = 2 } },
+	Gym = { DisplayName = "Gym", Stat = { Hitbox = 2 } },
+	Skincare = { DisplayName = "Skincare", Stat = { AvatarRating = 1 } },
+	Haircut = { DisplayName = "New Haircut", Stat = { AvatarRating = 2 } },
+	Style = { DisplayName = "New Fit", Stat = { AvatarRating = 1 } },
 	Mewing = { DisplayName = "Mewing", Stat = { AvatarRating = 1 } },
 	DrinkWater = { DisplayName = "Drink Water", Stat = { AvatarRating = 1 } },
 	HangOut = { DisplayName = "Hang Out", Stat = { Friends = 5 } },
@@ -136,6 +148,27 @@ StoryData.GrindActions = {
 		Flag = "MysteryJuice",
 		Lines = { Sub5 = true },
 	},
+}
+
+---------------------------------------------------------------------------
+-- Hardmaxxing: Dr. Polygon's Slider Clinic. Unlocks in chapter 3.
+-- Each visit is one action and one roll. Gains stop at the stat's hardmaxx cap.
+---------------------------------------------------------------------------
+
+StoryData.Procedures = {
+	HeightSlider = { DisplayName = "Height Slider", Stat = "Studs" },
+	WidthSlider = { DisplayName = "Width Slider", Stat = "Hitbox" },
+	MeshSwap = { DisplayName = "Mesh Swap", Stat = "AvatarRating" },
+}
+
+StoryData.ProcedureOrder = { "HeightSlider", "WidthSlider", "MeshSwap" }
+
+-- Checked in order. Chances add up to 1.
+StoryData.HardmaxxOutcomes = {
+	{ Id = "Jackpot", Chance = 0.30, Gain = 15, Text = "The slider locks in perfectly. Huge gain." },
+	{ Id = "Clean", Chance = 0.35, Gain = 10, Text = "Clean result. Solid gain." },
+	{ Id = "Flop", Chance = 0.25, Gain = 0, Text = "Nothing changed. Dr. Polygon shrugs." },
+	{ Id = "Glitch", Chance = 0.10, Gain = -5, Scar = 10, Text = "The mesh glitches. You lose 5, and this stat's hardmaxx cap drops by 10 for good." },
 }
 
 ---------------------------------------------------------------------------
@@ -188,7 +221,7 @@ StoryData.MiniBosses = {
 	-- Sub 5 Noob
 	HallwayBully = {
 		DisplayName = "Brock the Hallway Bully",
-		Requirements = { Studs = 30, AvatarRating = 20, Friends = 15 },
+		Requirements = { Studs = 30, AvatarRating = 24, Friends = 15 },
 		Intro = "Brock shoves your shoulder. \"You gonna do something?\"",
 		WinText = "You don't flinch. Brock walks off. The whole hallway saw it.",
 		LoseText = "You hit the lockers. Someone records it.",
@@ -239,7 +272,7 @@ StoryData.MiniBosses = {
 	},
 	DaxVelour = {
 		DisplayName = "Dax Velour, Old Rival Model",
-		Requirements = { Studs = 80, Hitbox = 75, AvatarRating = 90 },
+		Requirements = { Studs = 80, Hitbox = 75, AvatarRating = 88 },
 		Intro = "Dax hits the runway first. Flawless. \"Your turn.\"",
 		WinText = "You walk. The crowd forgets Dax is there.",
 		LoseText = "Dax Outshines you. The crowd chants his name.",
@@ -262,7 +295,7 @@ end
 local UNLOCKS = {
 	{ "Sleep", "Posture", "DrinkWater", "HangOut" },
 	{ "Skincare", "Mewing", "Gym" },
-	{ "Haircut", "Style", "Stretch" },
+	{ "Haircut", "Style", "Stretch", "HeightSlider", "WidthSlider", "MeshSwap" },
 	{},
 	{},
 }
@@ -323,6 +356,7 @@ StoryData.Lines = {
 					say("Coach", "Stop watching edits. Start a routine. Sleep, skincare, gym. Every day."),
 					narrate("Coach K Shamblox. Millions of subs. Calm voice. No doom."),
 					say("Coach", "The Bloxpill wants you to quit. A routine wants you to show up."),
+					say("Coach", "This is softmaxxing. Slow. Reliable. It has a ceiling, but it never backfires."),
 					narrate("You know you have to Rebirth and end this."),
 				},
 				Choices = {
@@ -356,6 +390,10 @@ StoryData.Lines = {
 					narrate("That night you post a progress pic on the forums."),
 					say("BrickPilled99", "lol cope. bone structure is fixed. it's over for you."),
 					narrate("Forum Mod BrickPilled99 has 40,000 posts and zero progress pics."),
+					narrate("Day 50. Your progress slows down. Some days the mirror shows nothing new."),
+					narrate("A flyer on the bus: DR. POLYGON'S SLIDER CLINIC. SKIP THE GRIND."),
+					say("Coach", "Softmaxxing has a ceiling. Hardmaxxing breaks the ceiling. Sometimes it breaks you."),
+					say("Polygon", "Height Slider, Width Slider, Mesh Swap. Fast results. No guarantees."),
 				},
 				Choices = {
 					{
@@ -411,7 +449,7 @@ StoryData.Lines = {
 	Sub5 = {
 		DisplayName = "Sub 5 Noob Line",
 		Difficulty = "Hard",
-		StartingStats = { Studs = 25, Hitbox = 20, AvatarRating = 15, Friends = 10 },
+		StartingStats = { Studs = 25, Hitbox = 20, AvatarRating = 30, Friends = 10 },
 		Chapters = {
 			{
 				Id = "Origin",
@@ -460,6 +498,7 @@ StoryData.Lines = {
 					say("Kai", "don't. i did the shortcut. ask me how it went."),
 					narrate("You open his profile. His last progress pic is from a year ago. Then nothing."),
 					say("Coach", "Your face isn't cooked. Your routine is. Sleep, skin, gym. Show up."),
+					say("Coach", "That's softmaxxing. Slow, but it never backfires."),
 					narrate("The video sits in the sidebar, next to the forum link."),
 				},
 				Choices = {
@@ -486,6 +525,9 @@ StoryData.Lines = {
 					narrate("Kai crashed after the shortcut. Now he grinds the slow way too."),
 					say("Nana", "You look happy. That's the most handsome I've seen you."),
 					say("Clerk", "BLOXED Face Wash is half off for first timers."),
+					say("Kai", "softmaxx got me back to where i was. it won't get me past it."),
+					say("Kai", "the slider clinic is legit. not like the bus stop guy. but it can still glitch you."),
+					say("Polygon", "Height Slider, Width Slider, Mesh Swap. Fast results. No guarantees."),
 					narrate("Day 45. You walk past a mirror and stop."),
 				},
 				Choices = {
@@ -585,6 +627,7 @@ StoryData.Lines = {
 					narrate("That night he gets it. She didn't laugh at what he said. She laughed at his Hunter Eyes."),
 					narrate("HyperScale rules everyone. Even the ones at the top."),
 					say("Coach", "Looks get you attention. A life gets you people."),
+					say("Coach", "And if you keep training, softmaxx. Slow and safe."),
 					say("Vera", "Shoot tomorrow at 5 AM. Cancel whatever you have."),
 				},
 				Choices = {
@@ -611,6 +654,8 @@ StoryData.Lines = {
 					say("Coach", "Keep the routine. Gym, sleep, skin. Not for the camera. For you."),
 					say("Clerk", "You're THE Top Blox? BLOXED Face Wash is on the house."),
 					say("You", "I'll pay. Like everyone else."),
+					say("Vera", "Dr. Polygon can fix that drop in a week. Height Slider, Mesh Swap. Fast."),
+					say("Polygon", "Fast results. No guarantees. Even for Top Blox."),
 					narrate("Jamie brings his friends. They don't care about the followers. They care that he's terrible at kart racing."),
 					narrate("Late at night, home alone, the mirror finds him."),
 				},
@@ -755,6 +800,15 @@ StoryData.Endings = {
 			"HyperScale wins.",
 		},
 	},
+	Glitched = {
+		Title = "Glitched",
+		Kind = "Lose",
+		Text = {
+			"The Slider Clinic glitched you past repair.",
+			"No amount of grinding reaches the bosses now.",
+			"HyperScale wins this time. Start a new run.",
+		},
+	},
 	NotEnoughStuds = {
 		Title = "Not Enough Studs",
 		Kind = "Lose",
@@ -806,9 +860,19 @@ function StoryData.NewRun(lineId)
 		Items = {},
 		Unlocked = {},
 		ChoicesMade = {},
+		SoftGain = {},
+		HardGain = {},
+		HardCap = {},
+		Scars = {},
 	}
 	for statId in pairs(StoryData.Stats) do
 		run.Stats[statId] = line.StartingStats[statId] or 0
+	end
+	for _, statId in ipairs(StoryData.FightStats) do
+		run.SoftGain[statId] = 0
+		run.HardGain[statId] = 0
+		run.HardCap[statId] = StoryData.HARD_CAP
+		run.Scars[statId] = 0
 	end
 	enterChapter(run)
 	return run
@@ -818,15 +882,69 @@ function StoryData.GetChapter(run)
 	return StoryData.Lines[run.Line].Chapters[run.Chapter]
 end
 
--- Grind once. Returns false when the action is locked or a trap.
+-- Softmaxx once. Fight stat gains stop at SOFT_CAP. Friends has no cap.
+-- Returns true, or false plus "Locked" or "SoftCapped".
 function StoryData.ApplyAction(run, actionId)
 	local action = StoryData.GrindActions[actionId]
 	assert(action, "Unknown action: " .. tostring(actionId))
 	if action.Trap or not run.Unlocked[actionId] then
-		return false
+		return false, "Locked"
 	end
-	addStats(run, action.Stat, itemBonus(run, actionId))
+	local gains = {}
+	local gained = false
+	for statId, amount in pairs(action.Stat) do
+		amount = amount + itemBonus(run, actionId)
+		if run.SoftGain[statId] then
+			amount = math.max(0, math.min(amount, StoryData.SOFT_CAP - run.SoftGain[statId]))
+			run.SoftGain[statId] = run.SoftGain[statId] + amount
+		end
+		gains[statId] = amount
+		gained = gained or amount > 0
+	end
+	if not gained then
+		return false, "SoftCapped"
+	end
+	addStats(run, gains)
 	return true
+end
+
+-- Hardmaxx once at the Slider Clinic. rng is optional and returns a number in [0, 1).
+-- Returns the outcome id and the stat change, or nil plus "Locked" or "HardCapped".
+function StoryData.ApplyHardmaxx(run, procedureId, rng)
+	local procedure = StoryData.Procedures[procedureId]
+	assert(procedure, "Unknown procedure: " .. tostring(procedureId))
+	if not run.Unlocked[procedureId] then
+		return nil, "Locked"
+	end
+	local statId = procedure.Stat
+	local room = run.HardCap[statId] - run.HardGain[statId]
+	if room <= 0 then
+		return nil, "HardCapped"
+	end
+
+	local roll = (rng or math.random)()
+	local outcome = StoryData.HardmaxxOutcomes[#StoryData.HardmaxxOutcomes]
+	local total = 0
+	for _, candidate in ipairs(StoryData.HardmaxxOutcomes) do
+		total = total + candidate.Chance
+		if roll < total then
+			outcome = candidate
+			break
+		end
+	end
+
+	local change = outcome.Gain
+	if change > 0 then
+		change = math.min(change, room)
+		run.HardGain[statId] = run.HardGain[statId] + change
+	end
+	if outcome.Scar then
+		run.HardCap[statId] = math.max(run.HardGain[statId], run.HardCap[statId] - outcome.Scar)
+		run.Scars[statId] = run.Scars[statId] + 1
+	end
+	local before = run.Stats[statId]
+	addStats(run, { [statId] = change })
+	return outcome.Id, run.Stats[statId] - before
 end
 
 -- Pick an option in the current chapter. Each choice counts once.
@@ -886,6 +1004,61 @@ function StoryData.ChallengeGate(run)
 	end
 	run.Chapter = run.Chapter + 1
 	enterChapter(run)
+	return true
+end
+
+-- Highest value a stat could still reach this run: soft room, hard room,
+-- the best stat bonus left in each unpicked choice, and future chapter events.
+-- An upper bound, so it never calls a winnable run lost.
+function StoryData.MaxReachable(run, statId)
+	if not run.SoftGain[statId] then
+		return StoryData.STAT_MAX
+	end
+	local value = run.Stats[statId]
+		+ (StoryData.SOFT_CAP - run.SoftGain[statId])
+		+ (run.HardCap[statId] - run.HardGain[statId])
+	local chapters = StoryData.Lines[run.Line].Chapters
+	for index = run.Chapter, #chapters do
+		local chapter = chapters[index]
+		if index > run.Chapter and chapter.OnEnterStats then
+			value = value + (chapter.OnEnterStats[statId] or 0)
+		end
+		for choiceIndex, choice in ipairs(chapter.Choices) do
+			if not run.ChoicesMade[index .. ":" .. choiceIndex] then
+				local best = 0
+				for _, option in ipairs(choice.Options) do
+					local amount = not option.Action and option.Stat and option.Stat[statId] or 0
+					best = math.max(best, amount)
+				end
+				value = value + best
+			end
+		end
+	end
+	return math.min(value, StoryData.STAT_MAX)
+end
+
+-- False plus the stat when no play can reach the remaining gates and the final bosses.
+-- Show the Glitched ending when this turns false.
+function StoryData.CanStillWin(run)
+	local requirements = {}
+	local chapters = StoryData.Lines[run.Line].Chapters
+	for index = run.Chapter, #chapters do
+		local gate = chapters[index].Gate
+		if gate then
+			table.insert(requirements, StoryData.MiniBosses[gate].Requirements)
+		end
+	end
+	for _, bossId in ipairs(StoryData.BossOrder) do
+		table.insert(requirements, StoryData.Bosses[bossId].Requirements)
+	end
+	for _, statId in ipairs(StoryData.StatOrder) do
+		local reachable = StoryData.MaxReachable(run, statId)
+		for _, needed in ipairs(requirements) do
+			if needed[statId] and reachable < needed[statId] then
+				return false, statId
+			end
+		end
+	end
 	return true
 end
 
