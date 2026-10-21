@@ -1,6 +1,6 @@
 # Avatarmaxxing: Defeat HyperScale
 
-Story, stats, bosses, and endings. The game data lives in `src/shared/StoryData.lua`. Change numbers and text there.
+Story, stats, chapters, characters, bosses, and endings. The game data lives in `src/shared/StoryData.lua`. Change numbers and text there.
 
 ## Glossary
 
@@ -16,108 +16,448 @@ The "Original" column is a dev note only. Player-facing text uses the in-game te
 | Ascend | Rebirth |
 | Mog | Outshine |
 | Hunter eyes | Hunter Eyes |
+| Mewing | Mewing |
 | Bonesmashing (trap) | Brick Smash |
 | Steroids (trap) | Mystery Juice |
 | Hypergamy | HyperScale |
 | Game / getting girls | Rizz. Attention meter is called Clout. |
 | Height / Width / Looks | Studs / Hitbox / Avatar Rating |
 | Real models (bosses) | Shawn O'Pixel, Jordan Bloxett |
+| Looksmaxxing YouTuber | Coach K Shamblox |
+| Product brand | BLOXED |
 
-The bosses use parody names. Roblox removes experiences using real people's names and likeness.
+Bosses and creator references use parody names. Roblox removes experiences using real people's names and likeness.
+
+## How a run works
+
+Every line has 5 chapters:
+
+1. Origin: who you are.
+2. Wake Up: the Bloxpill hits. Coach K Shamblox shows up with the legit routine.
+3. The Grind: the long middle. Side characters raise Friends.
+4. The Climb: a rival and a final temptation.
+5. Boss Realm: Shawn O'Pixel, Jordan Bloxett, HyperScale, then the ending.
+
+Each chapter plays its scenes, then its choices (each choice counts once), then a grind phase. Chapters 1 to 4 end with a mini boss gate. Lose a gate and you keep grinding and retry. Win and you get BLOXED items and the next chapter opens. Chapter 5 resolves the ending.
 
 ## Stats
 
-| Stat | Meaning | Legit grind |
+All stats cap at 100 and never drop below 0. Studs, Hitbox, and Avatar Rating decide fights. Friends matters for some gates and the Top Blox bonus ending.
+
+| Action | Gain | Unlocks |
 |---|---|---|
-| Studs | Height | Sleep 9 Hours (+2), Fix Posture (+1) |
-| Hitbox | Clavicle and shoulder width | Gym (+3) |
-| Avatar Rating | Looks | Skincare (+2), New Haircut (+3), New Fit (+2) |
-| Friends | People who like you for you | Hang Out (+5) |
+| Sleep 9 Hours | +2 Studs | Chapter 1 |
+| Fix Posture | +1 Studs | Chapter 1 |
+| Drink Water | +1 Avatar Rating | Chapter 1 |
+| Hang Out | +5 Friends | Chapter 1 |
+| Skincare | +2 Avatar Rating | Chapter 2 |
+| Mewing | +1 Avatar Rating | Chapter 2 |
+| Gym | +3 Hitbox | Chapter 2 |
+| New Haircut | +3 Avatar Rating | Chapter 3 |
+| New Fit | +2 Avatar Rating | Chapter 3 |
+| Stretch | +1 Studs | Chapter 3 |
 
-All stats cap at 100. Studs, Hitbox, and Avatar Rating decide boss fights. Friends unlocks the Top Blox bonus ending.
+## BLOXED items
 
-Tier comes from the average of Studs, Hitbox, and Avatar Rating:
+Gate rewards. Same on every line.
 
-| Average | Tier |
-|---|---|
-| 85+ | Top Blox |
-| 75+ | Top Blox Lite |
-| 65+ | HTR |
-| 50+ | MTR |
-| 30+ | LTR |
-| below 30 | Sub 5 Noob |
+| Gate | Item | Effect |
+|---|---|---|
+| Chapter 1 | BLOXED Sleep Mask | +1 Studs on Sleep 9 Hours. |
+| Chapter 2 | BLOXED Protein | +1 Hitbox on Gym. |
+| Chapter 3 | BLOXED Face Wash | +1 Avatar Rating on Skincare. |
+| Chapter 4 | BLOXED Hair Clay | +1 Avatar Rating on New Haircut and New Fit. |
+| Chapter 4 | BLOXED Crown | Cosmetic. Proof you made it to the Boss Realm. |
 
-## Storylines
+## Characters
 
-### LTR Line (Normal)
+| Character | Line | Role |
+|---|---|---|
+| Coach K Shamblox | All | Avatarmaxxing YouTuber. Calm voice, no doom. Teaches the legit routine. |
+| BLOXED Store Clerk | All | Runs the BLOXED Store. Knows every product by heart. |
+| BrickPilled99 | LTR, Sub 5 Noob | Bloxpill forum mod. 40,000 posts, zero progress pics. |
+| Milo | LTR | Your best friend since second grade. Also an LTR. |
+| Ava | LTR | Classmate. Borrowed your pencil once. |
+| Lunch Table Larry | LTR | Runs the popular lunch table. |
+| Tyler | LTR | Top Blox Lite. Captain of everything. Hates competition. |
+| Nana | Sub 5 Noob | Your grandma. Thinks you are the most handsome boy alive. |
+| Kai | Sub 5 Noob | A Noob who took the shortcut and crashed. Now grinds the slow way. |
+| Dre | Sub 5 Noob | Gym regular. 40, built like a vending machine, nicest guy there. |
+| Brock | Sub 5 Noob | The hallway bully. |
+| The Shortcut Salesman | Sub 5 Noob | Long coat. Sells Mystery Juice at the bus stop. |
+| Vera | Top Blox | Your agent since you were in diapers. |
+| Jamie | Top Blox | The only kid who asked you to play. Still asks. |
+| Lena | Top Blox | Works at the coffee shop near the studio. The girl who laughed. |
+| Dax Velour | Top Blox | Your old runway rival. The agency's new face. |
+
+## LTR Line (Normal)
 
 Start: Studs 40, Hitbox 35, Avatar Rating 40, Friends 30.
 
-1. You grew up as an LTR.
-2. You never got any rizz during school.
-3. You slowly accepted it.
-4. Each day it bothered you more.
-5. One night you were doomscrolling in bed and saw a Bloxpill edit.
-6. You learned the whole Bloxpill in one night.
-7. You tried to deny your avatar was the reason you got no rizz.
-8. Then you kept seeing Top Blox get all the Clout.
-9. You knew you had to Rebirth and end this.
+### Chapter 1: Back Row
 
-### Sub 5 Noob Line (Hard)
+- You grew up as an LTR. Not ugly. Not noticed either.
+- In every class photo, you end up in the back row.
+- **Milo:** Bro, you coming to lunch or what?
+- Milo has been your best friend since second grade. He is an LTR too.
+- At the popular table, Lunch Table Larry tells a joke. Everyone laughs.
+- You tell the same joke the next day. Silence.
+- You never get any rizz during school.
+- **Ava:** Hey, can I borrow your pencil? Thanks.
+- She never gives it back. She never talks to you again.
+- You slowly accept it.
+
+Choice: Larry points at the end of his table. "Scoot over, LTR. That seat's taken."
+
+- Sit with Milo instead. (+5 Friends) Milo: "Knew you would."
+- Sit at the popular table anyway. Lunch Table Larry: "Bold. Nobody asked though."
+
+Gate: **Lunch Table Larry**. Needs Studs 42, Avatar Rating 44, Friends 35.
+
+- Intro: Larry stands up. "Prove you belong at this table."
+- Win: Larry shrugs. "Okay. You're not that bad." Milo grins at you.
+- Lose: Larry laughs. The whole table laughs with him.
+
+### Chapter 2: The Bloxpill Night
+
+- Each day it bothers you more.
+- Ava starts dating a Top Blox from the grade above.
+- One night you are doomscrolling in bed.
+- A Bloxpill edit fills your screen. Slow phonk. Jawlines. Hunter Eyes.
+- You learn the whole Bloxpill in one night.
+- **You:** So it was my avatar the whole time?
+- You try to deny it. Then you see Top Blox get all the Clout, every day, everywhere.
+- At 3 AM the algorithm shows you a different video.
+- **Coach K Shamblox:** Stop watching edits. Start a routine. Sleep, skincare, gym. Every day.
+- Coach K Shamblox. Millions of subs. Calm voice. No doom.
+- **Coach K Shamblox:** The Bloxpill wants you to quit. A routine wants you to show up.
+- You know you have to Rebirth and end this.
+
+Choice: Autoplay loads the next video. Which one do you watch?
+
+- Another Bloxpill edit. "The edit ends. You feel worse."
+- Coach K Shamblox's full routine. (+2 Avatar Rating) Coach K Shamblox: "Day one starts now."
+
+Choice: Milo texts at 3:12 AM: "u up? cant sleep either lol"
+
+- Call him and talk it out. (+5 Friends) Milo: "Bro, same. Everybody feels like that. Let's fix it together."
+- Leave him on read. "The screen goes dark."
+
+Gate: **Mirror You**. Needs Hitbox 45, Avatar Rating 52, Friends 45.
+
+- Intro: Your reflection stares back. "You really think this will work?"
+- Win: Your reflection nods. For the first time, you believe it.
+- Lose: Your reflection shakes its head. You turn off the light.
+
+### Chapter 3: Day One to Day Sixty
+
+- Day 1. You wake up at 7. Water. Skincare. Gym.
+- Day 14. Nothing changes. You want to quit.
+- **Milo:** You've been weird lately. Good weird. What's going on?
+- Day 30. Your jaw looks sharper. Your shirts fit different.
+- **BLOXED Store Clerk:** Welcome to the BLOXED Store. Face wash, hair clay, protein. All BLOXED.
+- You save your allowance for BLOXED Hair Clay.
+- That night you post a progress pic on the forums.
+- **BrickPilled99:** lol cope. bone structure is fixed. it's over for you.
+- Forum Mod BrickPilled99 has 40,000 posts and zero progress pics.
+
+Choice: Milo keeps asking. Do you tell him about the grind?
+
+- Tell him everything. (+10 Friends) Milo: "Bet. I'm joining. Gym at 6?"
+- Keep it secret. Milo: "Okay. Let me know if you need me."
+
+Gate: **Forum Mod BrickPilled99**. Needs Studs 55, Hitbox 55, Avatar Rating 62.
+
+- Intro: BrickPilled99 logs in. "Prove it's not over."
+- Win: You post your day 60 pic. BrickPilled99 bans you for spreading hope.
+- Lose: The replies pile up. You log off.
+
+### Chapter 4: The Rebirth Rumble
+
+- Day 90. People start saying hi in the hallway.
+- **Ava:** Did you get taller? You look different.
+- You don't fall for it. You say thanks and keep walking.
+- **Tyler:** Yo. You're the LTR who glowed up, right?
+- Tyler is a Top Blox Lite. Captain of everything. He doesn't like competition.
+- **Tyler:** Rebirth Rumble, Friday. Winner gets the Clout. Loser goes back to the back row.
+- **Milo:** You're ready. I've seen you train.
+
+Choice: The Rumble is in five days.
+
+- Train with Milo all week. (+3 Hitbox, +5 Friends) Milo: "Let's work."
+- Scroll Tyler's profile all night. (-1 Studs) "You fall asleep at 4 AM."
+
+Gate: **Tyler, Top Blox Lite**. Needs Studs 64, Hitbox 62, Avatar Rating 74.
+
+- Intro: Tyler steps into the ring. "Let's see that Rebirth."
+- Win: Tyler stares for a long second. "Respect." He holds out a hand.
+- Lose: Tyler Outshines you. The crowd cheers for him.
+
+### Chapter 5: The Runway in the Sky
+
+- After the Rumble, the gym lights flicker.
+- A door opens where a wall used to be. Behind it, a runway in the sky.
+- **Coach K Shamblox:** This is where the Clout goes. HyperScale lives at the end of that runway.
+- **Milo:** I'm coming with you. Somebody has to cheer.
+- Shawn O'Pixel waits at the first light. Jordan Bloxett waits at the second.
+- At the end, the giant scale. Every bit of Clout sits on one side.
+- **You:** Time to tip it back.
+
+## Sub 5 Noob Line (Hard)
 
 Start: Studs 25, Hitbox 20, Avatar Rating 15, Friends 10.
 
-1. You have been a Sub 5 Noob your whole life.
-2. People bullied you for your avatar.
-3. Every time a girl showed you the smallest kindness, you fell for her.
-4. Soon you realized it meant nothing.
-5. You started searching for a cure.
-6. While searching, you found the Bloxpill forums.
-7. They told you only looks matter, all the time.
-8. They said your bone structure is cooked.
-9. They said the only way out is Brick Smash and Mystery Juice.
-10. You step onto the path to fight this unfair server.
+### Chapter 1: Default Avatar
 
-Choice: take Brick Smash, take Mystery Juice, or close the forums and grind the slow way.
+- You have been a Sub 5 Noob your whole life.
+- In kindergarten, a kid called you "default avatar." It stuck.
+- **Nana:** Eat your dinner. You're the most handsome boy I know.
+- Nana says it every night. You stopped believing it in fourth grade.
+- People bully you for your avatar. In the hallway. In the group chat. In PE.
+- A girl in art class smiles and says your drawing is nice.
+- You think about her for six months.
+- She was being nice. That was all.
+- Every time a girl shows you the smallest kindness, you fall for her. Every time, it means nothing.
+- **Brock:** Move, Noob. This hallway is for real avatars.
 
-### Top Blox Line (Story)
+Choice: Brock blocks the hallway.
+
+- Walk around him. Brock: "Yeah. That's what I thought."
+- Stand up straight and look him in the eye. (+1 Studs) Brock: "...Whatever, weirdo."
+
+Choice: Nana asks how school was.
+
+- Tell her the truth. (+5 Friends) Nana: "Then we'll fix it. Together. Starting with a good night's sleep."
+- Say it was fine. Nana: "Okay, sweetheart."
+
+Gate: **Brock the Hallway Bully**. Needs Studs 30, Avatar Rating 20, Friends 15.
+
+- Intro: Brock shoves your shoulder. "You gonna do something?"
+- Win: You don't flinch. Brock walks off. The whole hallway saw it.
+- Lose: You hit the lockers. Someone records it.
+
+### Chapter 2: The Forums at 2 AM
+
+- You start searching for a cure. "How to fix face." "How to grow taller." "Why am I like this."
+- At 2 AM, you find the Bloxpill forums.
+- **BrickPilled99:** only looks matter. all the time. accept it.
+- **BrickPilled99:** your bone structure is cooked. only way out is brick smash and mystery juice.
+- The thread has 900 replies. Most of them agree.
+- One reply is different. Username: kai_was_here.
+- **Kai:** don't. i did the shortcut. ask me how it went.
+- You open his profile. His last progress pic is from a year ago. Then nothing.
+- **Coach K Shamblox:** Your face isn't cooked. Your routine is. Sleep, skin, gym. Show up.
+- The video sits in the sidebar, next to the forum link.
+
+Choice: The forum links glow on your screen. What do you do?
+
+- Take the shortcut. Brick Smash. (TRAP: Brick Smash) BrickPilled99: "finally. welcome to the real ones."
+- Message Kai back. (+5 Friends) Kai: "glad you asked. don't do it. grind with me instead."
+- Close the forums. Watch Coach K Shamblox. (+2 Avatar Rating) Coach K Shamblox: "Day one starts now."
+
+Gate: **Forum Mod BrickPilled99**. Needs Hitbox 30, Avatar Rating 30.
+
+- Intro: BrickPilled99 tags you in a thread. "this noob thinks he can grind out of sub 5 lmao"
+- Win: You post your first week of progress. Nobody can call it fake.
+- Lose: You read every reply. You don't sleep.
+
+### Chapter 3: Elbows In
+
+- Day 1. Your arms shake on the first push up.
+- **Dre:** First time? Keep your elbows in. I'm Dre. I'm here every day at 6.
+- Dre is 40, built like a vending machine, and the nicest guy at the gym.
+- Day 20. Brock still calls you Noob. You still show up.
+- **Kai:** bro your skin looks better. for real.
+- Kai crashed after the shortcut. Now he grinds the slow way too.
+- **Nana:** You look happy. That's the most handsome I've seen you.
+- **BLOXED Store Clerk:** BLOXED Face Wash is half off for first timers.
+- Day 45. You walk past a mirror and stop.
+
+Choice: Dre invites you to train with his 6 AM crew.
+
+- Join the crew. (+2 Hitbox, +10 Friends) Dre: "Welcome. We lift, we eat, we talk trash."
+- Train alone. Dre: "Door's always open."
+
+Gate: **Mirror You**. Needs Studs 45, Hitbox 45, Avatar Rating 50, Friends 30.
+
+- Intro: Your reflection talks in BrickPilled99's voice. "still sub 5. always sub 5."
+- Win: Your reflection blinks. Then it smiles back.
+- Lose: You look away first.
+
+### Chapter 4: The Bus Stop
+
+- Day 100. Kids at school stop calling you Noob. Some don't recognize you.
+- **Brock:** ...Bro, did you switch schools and come back?
+- At the bus stop, a man in a long coat waves you over.
+- **The Shortcut Salesman:** Psst. Mystery Juice. Fast Hitbox. One bottle and you skip months.
+- **Kai:** that's the guy. that's the exact guy.
+
+Choice: The Shortcut Salesman holds out a bottle.
+
+- Take the Mystery Juice. (TRAP: Mystery Juice) The Shortcut Salesman: "Smart kid. No refunds."
+- Walk away with Kai. (+5 Friends) Kai: "proud of you. fr."
+
+Gate: **The Shortcut Salesman**. Needs Studs 58, Hitbox 55, Avatar Rating 66.
+
+- Intro: The Salesman blocks your path. "Nobody grinds their way out. Prove me wrong."
+- Win: The Salesman looks you up and down, then walks off to find someone else.
+- Lose: "See? You need me." He slips a card into your pocket.
+
+### Chapter 5: Not Tonight
+
+- That night, the forum loads by itself. One thread. No replies. A link.
+- You click it. Your room turns into a runway in the sky.
+- **BrickPilled99:** you're not supposed to be here. this realm is for top blox.
+- **Coach K Shamblox:** Ignore the mod. The realm is for anyone who shows up.
+- **Dre:** Elbows in. Chin up. You got this.
+- **Nana:** Make Nana proud.
+- Shawn O'Pixel. Jordan Bloxett. Then the giant scale.
+- **You:** I was Sub 5 my whole life. Not tonight.
+
+## Top Blox Line (Story)
 
 Start: Studs 75, Hitbox 70, Avatar Rating 85, Friends 0.
 
-1. He was born with Hunter Eyes.
-2. He has been a model since he was a kid.
-3. He always gets what he wants.
-4. He has no friends.
-5. He never had a real childhood.
-6. People only used him for modeling.
-7. One day he decides to meet a girl.
-8. He says a normal thing. Not even a joke.
-9. She laughs.
-10. Now he knows HyperScale rules everyone, even the ones at the top.
-11. He walks into the boss realm to face his old modeling rivals.
+### Chapter 1: Born for the Billboard
 
-Choice: talk to an old classmate (+10 Friends) or ignore them.
+- He was born with Hunter Eyes. The nurse said he'd be famous.
+- At age 4, he booked his first ad. At age 7, a billboard.
+- **Vera:** Smile. No, the other smile. Again.
+- Vera is his agent. She has managed him since diapers.
+- He always gets what he wants. New shoes, new phone, new house.
+- He never gets a birthday party. Birthdays are shoot days.
+- **Jamie:** Want to play after school?
+- Jamie from second grade. The only kid who asked.
+- **Vera:** He's busy. He's always busy.
+- Outside the school gate, the cameras wait.
+
+Choice: Jamie asks again the next day.
+
+- Say yes behind Vera's back. (+10 Friends) Jamie: "Sweet! Bring your bike!"
+- Say you're busy. Jamie: "Okay. Maybe next time."
+
+Gate: **Paparazzi Swarm**. Needs Studs 77, Avatar Rating 87.
+
+- Intro: Flashbulbs everywhere. "Look here! Give us the Hunter Eyes!"
+- Win: You walk through the flashes without missing a step.
+- Lose: You trip on a cable. It's on every feed by dinner.
+
+### Chapter 2: Oat Latte
+
+- Fifteen years later. Top Blox. Number one on every board.
+- 9 million followers. Zero people to text.
+- One day he decides to meet a girl. Not at a shoot. In real life.
+- Her name is Lena. She works at the coffee shop near the studio.
+- **You:** Hi. Could I get an oat latte? It's cold today.
+- A normal thing. Not even a joke.
+- **Lena:** Oh my gosh, you're so funny.
+- She laughs at nothing. Her friend takes a photo.
+- That night he gets it. She didn't laugh at what he said. She laughed at his Hunter Eyes.
+- HyperScale rules everyone. Even the ones at the top.
+- **Coach K Shamblox:** Looks get you attention. A life gets you people.
+- **Vera:** Shoot tomorrow at 5 AM. Cancel whatever you have.
+
+Choice: Vera books a shoot over Jamie's birthday.
+
+- Go to Jamie's birthday. (+10 Friends) Jamie: "You actually came?! No way."
+- Go to the shoot. (+2 Avatar Rating) Vera: "Good. That's my Top Blox."
+
+Gate: **Agency Boss Vera**. Needs Hitbox 73, Friends 15.
+
+- Intro: Vera slams the contract on the table. "You walk out, you lose everything."
+- Win: You put the pen down. "Then I lose everything." Vera goes quiet for the first time.
+- Lose: You sign. Again.
+
+### Chapter 3: An Empty Calendar
+
+On enter: -12 Hitbox, -15 Avatar Rating.
+
+- No more 5 AM shoots. For the first time, his calendar is empty.
+- No stylist. No trainer. No skincare team. In the mirror, he looks normal for the first time.
+- He doesn't know how to have a normal day.
+- **Jamie:** Step one, pizza. Step two, games until 2 AM. Step three, repeat.
+- **Coach K Shamblox:** Keep the routine. Gym, sleep, skin. Not for the camera. For you.
+- **BLOXED Store Clerk:** You're THE Top Blox? BLOXED Face Wash is on the house.
+- **You:** I'll pay. Like everyone else.
+- Jamie brings his friends. They don't care about the followers. They care that he's terrible at kart racing.
+- Late at night, home alone, the mirror finds him.
+
+Choice: Jamie's friends invite you to game night every Friday.
+
+- Go every Friday. (+10 Friends) Jamie: "Told you they'd like you."
+- Go once. (+5 Friends) Jamie: "Cool. Door's open."
+
+Gate: **Mirror You (Lonely)**. Needs Avatar Rating 88, Friends 35.
+
+- Intro: Your reflection poses like a billboard. "Without the cameras, who are you?"
+- Win: Your reflection drops the pose. You both laugh.
+- Lose: You pose back out of habit. The room feels huge.
+
+### Chapter 4: Replaced
+
+- A text from an unknown number. "The agency replaced you."
+- His replacement is Dax Velour, his old rival from the runway days.
+- **Dax Velour:** Heard you went soft. Pizza and friends? You're done.
+- **Lena:** Hey. I'm sorry I laughed. I didn't even hear what you said.
+- **Dax Velour:** Runway Showdown, Saturday. Prove you still have it.
+
+Choice: Lena apologizes.
+
+- Accept it. Order a latte. (+5 Friends) Lena: "Oat latte. On me this time."
+- Walk out. Lena: "...Fair."
+
+Gate: **Dax Velour, Old Rival Model**. Needs Studs 80, Hitbox 75, Avatar Rating 90.
+
+- Intro: Dax hits the runway first. Flawless. "Your turn."
+- Win: You walk. The crowd forgets Dax is there.
+- Lose: Dax Outshines you. The crowd chants his name.
+
+### Chapter 5: The Heavy Side
+
+- After the show, the runway keeps going. Past the lights. Into the sky.
+- At the end, two faces he knows from a hundred shoots. Shawn O'Pixel. Jordan Bloxett.
+- **Vera:** Go back. Up there, nobody wins.
+- **Jamie:** We're right here. Go.
+- Behind them, the giant scale. He has always sat on the heavy side.
+- **You:** Time to tip it back. For everyone.
+
+## Mini bosses
+
+| Line | Chapter | Mini boss | Needs |
+|---|---|---|---|
+| LTR Line | 1 | Lunch Table Larry | Studs 42, Avatar Rating 44, Friends 35 |
+| LTR Line | 2 | Mirror You | Hitbox 45, Avatar Rating 52, Friends 45 |
+| LTR Line | 3 | Forum Mod BrickPilled99 | Studs 55, Hitbox 55, Avatar Rating 62 |
+| LTR Line | 4 | Tyler, Top Blox Lite | Studs 64, Hitbox 62, Avatar Rating 74 |
+| Sub 5 Noob Line | 1 | Brock the Hallway Bully | Studs 30, Avatar Rating 20, Friends 15 |
+| Sub 5 Noob Line | 2 | Forum Mod BrickPilled99 | Hitbox 30, Avatar Rating 30 |
+| Sub 5 Noob Line | 3 | Mirror You | Studs 45, Hitbox 45, Avatar Rating 50, Friends 30 |
+| Sub 5 Noob Line | 4 | The Shortcut Salesman | Studs 58, Hitbox 55, Avatar Rating 66 |
+| Top Blox Line | 1 | Paparazzi Swarm | Studs 77, Avatar Rating 87 |
+| Top Blox Line | 2 | Agency Boss Vera | Hitbox 73, Friends 15 |
+| Top Blox Line | 3 | Mirror You (Lonely) | Avatar Rating 88, Friends 35 |
+| Top Blox Line | 4 | Dax Velour, Old Rival Model | Studs 80, Hitbox 75, Avatar Rating 90 |
 
 ## Trap routes
 
-Brick Smash (+25 Avatar Rating) and Mystery Juice (+25 Hitbox) show up only on the Sub 5 Noob line. Each gives a fast stat jump and sets a flag.
+Only the Sub 5 Noob gets offered the shortcut: Brick Smash in chapter 2 (the forums) and Mystery Juice in chapter 4 (the Shortcut Salesman). Each gives +25 to one stat and sets a flag. Traps never show up as grind actions.
 
-At the end, a trap flag triggers a roll:
+In the Boss Realm, any trap flag triggers a roll:
 
-- 97%: the trap ending plays. Brick Smash leads to "Brick Smashed". Mystery Juice leads to "Juice Crash". HyperScale wins.
-- 3%: the Noob gets a Lucky Rebirth and still has to beat all three bosses with his stats.
+- 97%: the trap ending plays. Brick Smash leads to "Brick Smashed" (checked first). Mystery Juice leads to "Juice Crash". HyperScale wins.
+- 3%: Lucky Rebirth. He still has to beat all three bosses.
 
-Tune the chance with `SHORTCUT_REBIRTH_CHANCE` in `StoryData.lua`.
+Tune the chance with `SHORTCUT_REBIRTH_CHANCE`.
 
-## Boss fight
+## Boss Realm
 
-Bosses come in order. Each one checks Studs, Hitbox, and Avatar Rating. Any stat below the requirement loses the fight.
+Bosses come in order. Any stat below the requirement loses the fight.
 
-| Order | Boss | Studs | Hitbox | Avatar Rating |
-|---|---|---|---|---|
-| 1 | Shawn O'Pixel, The Face of Every Ad | 60 | 55 | 70 |
-| 2 | Jordan Bloxett, The Runway King | 70 | 65 | 80 |
-| 3 | HyperScale, The Scale Itself | 80 | 75 | 85 |
+| Order | Boss | Needs |
+|---|---|---|
+| 1 | Shawn O'Pixel, The Face of Every Ad | Studs 60, Hitbox 55, Avatar Rating 70 |
+| 2 | Jordan Bloxett, The Runway King | Studs 70, Hitbox 65, Avatar Rating 80 |
+| 3 | HyperScale, The Scale Itself | Studs 80, Hitbox 75, Avatar Rating 85 |
 
 Beat all three and the scale tips back to normal. HyperScale stops existing.
 
@@ -126,25 +466,71 @@ Beat all three and the scale tips back to normal. HyperScale stops existing.
 | Ending | Kind | Condition |
 |---|---|---|
 | The Scale Tips Back | True | No trap used, beat all three bosses. |
-| Real Friends | Bonus | Top Blox line, beat all three bosses, Friends 50+. |
+| Real Friends | Bonus | Top Blox line, beat all three bosses, Friends 50+. Story choices give up to 35, so extra Hang Outs are needed. |
 | Lucky Rebirth | Rare | Sub 5 Noob used a trap, won the 3% roll, beat all three bosses. |
 | Brick Smashed | Bad | Used Brick Smash and lost the roll. |
-| Juice Crash | Bad | Used Mystery Juice and lost the roll. |
-| Not Enough Studs | Lose | A stat fell below a boss requirement. Retry and grind more. |
+| Juice Crash | Bad | Used Mystery Juice only and lost the roll. |
+| Not Enough Studs | Lose | A stat fell below a boss requirement. Grind more and retry. |
+
+### The Scale Tips Back
+
+- Shawn O'Pixel falls. Jordan Bloxett falls.
+- You face HyperScale and push.
+- The scale tips back to normal.
+- HyperScale stops existing.
+- Clout spreads across the whole server. Everyone gets noticed.
+
+### Real Friends
+
+- HyperScale breaks, and the scale tips back to normal.
+- For once nobody wants a photo.
+- Jamie texts: "pizza?"
+- You finally get the childhood you missed.
+
+### Lucky Rebirth
+
+- You took the shortcut and somehow made it.
+- You Rebirth and beat HyperScale.
+- The scale tips back to normal.
+- Out of every 100 Noobs who took the shortcut, 97 crashed. You were one of the 3.
+
+### Brick Smashed
+
+- Your Avatar Rating spiked, then crashed at the boss gate.
+- HyperScale laughs. The shortcut was part of its plan.
+- HyperScale wins.
+
+### Juice Crash
+
+- Your Hitbox spiked, then crashed mid fight.
+- HyperScale tips further to the top.
+- HyperScale wins.
+
+### Not Enough Studs
+
+- Your stats were not high enough.
+- Grind more and come back.
+
+## Run length
+
+Fewest grind actions for a full clean run, with perfect choices: Sub 5 Noob 62, LTR 45, Top Blox 16. Top Blox loses 12 Hitbox and 15 Avatar Rating when he leaves the agency in chapter 3. Real players take more, and action cooldowns in the game code set the real playtime.
 
 ## Code API
 
 ```lua
 local StoryData = require(game.ReplicatedStorage.Shared.StoryData)
 
-local stats = StoryData.NewStats("Sub5")
-local flags = {}
-StoryData.ApplyAction("Sub5", stats, flags, "Gym")
+local run = StoryData.NewRun("Sub5")       -- { Line, Chapter, Stats, Flags, Items, Unlocked }
+local chapter = StoryData.GetChapter(run)  -- chapter.Scenes, chapter.Choices, chapter.Gate
 
-local tier = StoryData.GetTier(stats)              -- tier.DisplayName
-local won, missingStat = StoryData.CanBeatBoss(stats, "ShawnOPixel")
-local endingId, info = StoryData.ResolveEnding("Sub5", stats, flags)
-local ending = StoryData.Endings[endingId]         -- ending.Title, ending.Text
+local option = StoryData.ApplyChoice(run, 1, 2)   -- option.Speaker, option.Reply
+StoryData.ApplyAction(run, "Gym")                 -- false if locked or a trap
+
+local won, missingStat = StoryData.ChallengeGate(run)  -- win grants items, opens the next chapter
+
+-- chapter 5 (chapter.BossRealm == true):
+local endingId, info = StoryData.ResolveEnding(run)    -- info.LostTo, info.MissingStat on a loss
+local ending = StoryData.Endings[endingId]             -- ending.Title, ending.Text
 ```
 
-`ResolveEnding` takes an optional fourth argument, a function returning a number in [0, 1), for testing the roll.
+`ResolveEnding` takes an optional second argument, a function returning a number in [0, 1), for testing the roll. Scene and reply speakers are keys in `StoryData.Characters`.
