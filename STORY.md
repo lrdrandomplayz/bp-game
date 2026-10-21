@@ -606,6 +606,16 @@ Roblox charges before `ProcessReceipt` runs, so the game never wastes a purchase
 
 Free Scar Repairs: beating a line for the first time (True, Bonus, or Rare ending) grants one, so up to 3 per player.
 
+### Codes
+
+Players type codes in the Codes box in the store menu. Each code works once per player, in any case, with or without spaces.
+
+| Code | Reward |
+|---|---|
+| SKIPREST | 1 free Skip Rest |
+
+A redeemed Skip Rest is saved on the profile, so redeeming on a full bar is fine. To add a code, add an entry to `src/server/Codes.lua` with a `Reward` (`SkipRestCredits` or `ScarRepairTokens`), a `Message`, `Enabled = true`, and an optional `ExpiresAt` (Unix time). Codes live in a server-only module so exploiters can't read unreleased ones. The server limits tries to 1 every 2 seconds and 10 per minute.
+
 ### Never sold
 
 - Slider Clinic visits. Paid rolls with Flop and Glitch outcomes fall under Roblox's gambling policy.
@@ -629,7 +639,7 @@ Softmaxxing alone gets LTR and Sub 5 Noob stuck in chapter 3, so they have to vi
 ```lua
 local StoryData = require(game.ReplicatedStorage.Shared.StoryData)
 
-local profile = StoryData.NewProfile()    -- saved per player: LinesBeaten, EndingsSeen, ScarRepairTokens, SkipRestCredits
+local profile = StoryData.NewProfile()    -- saved per player: LinesBeaten, EndingsSeen, ScarRepairTokens, SkipRestCredits, RedeemedCodes
 local run = StoryData.NewRun("Sub5", os.time())  -- { Line, Chapter, Stats, Flags, Items, Unlocked, SoftGain, HardGain, HardCap, Scars }
 local chapter = StoryData.GetChapter(run)  -- chapter.Scenes, chapter.Choices, chapter.Gate
 
@@ -655,6 +665,10 @@ if not StoryData.ApplyProduct(run, "SkipRest") then   -- in ProcessReceipt
 	StoryData.CreditProduct(profile, "SkipRest")       -- save it, then grant the receipt
 end
 StoryData.UseScarRepairToken(profile, run, "Studs")    -- free repair
+
+-- codes (server only)
+local Codes = require(ServerScriptService.Codes)
+local ok, messageOrReason = StoryData.RedeemCode(profile, Codes, "skiprest", os.time())
 ```
 
 `ApplyHardmaxx` takes an optional third argument and `ResolveEnding` an optional second argument, a function returning a number in [0, 1), for testing the roll. Scene and reply speakers are keys in `StoryData.Characters`.

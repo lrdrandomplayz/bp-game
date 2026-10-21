@@ -19,6 +19,7 @@ The server is authoritative. Clients only ask; the server decides.
 | RunService (server script) | ServerScriptService | Holds each player's `run` and `profile`. Calls `StoryData` functions. Rolls every random number with a server-side `Random.new()`. |
 | SaveService | ServerScriptService | DataStore save and load: `profile` plus the current `run`, keyed by UserId. Saves on leave, on chapter change, and every few minutes. Uses `UpdateAsync` with retries. |
 | StoreService | ServerScriptService | `UserOwnsGamePassAsync` on join, then `StoryData.GrantPass`. `ProcessReceipt` for products: `ApplyProduct`, or `CreditProduct` when it can't apply, and always grant the receipt. |
+| CodeService | ServerScriptService | Requires the server-only `src/server/Codes.lua` and calls `StoryData.RedeemCode`. Rate limits tries. |
 | PartyService | ServerScriptService | Party invites, up to 4 players, raid and event queues. |
 | Client UI | StarterPlayerScripts | Dialogue boxes, choices, grind buttons, Energy bar, store, party panel. Sends intents only. |
 
@@ -31,6 +32,8 @@ The server is authoritative. Clients only ask; the server decides.
 | `VisitClinic` | procedureId | `RefreshEnergy`, then `ApplyHardmaxx` with the server rng |
 | `ChallengeGate` | none | `ChallengeGate` |
 | `UseFreeRepair` | statId | `UseScarRepairToken` |
+| `UseSkipRestCredit` | none | `UseSkipRestCredit` |
+| `RedeemCode` (RemoteFunction) | code text | 1 try every 2 seconds and 10 per minute per player, then `RedeemCode(profile, Codes, text, os.time())`. Returns the message or the reason. |
 | `PartyInvite`, `PartyAccept`, `PartyLeave` | userId | PartyService |
 | `QueueRaid`, `QueueRunway` | none | Party leader only, every member eligible |
 
@@ -51,11 +54,11 @@ One shared map. Story scenes play at the place they happen.
 | Home | Sleep, Skincare, Mewing, mirror gates (Mirror You), Bloxpill forum scenes |
 | Runway Tower | Boss Realm raid entrance and Team Runway events |
 
-Scenes a player is in right now only show to that player. Other players see them standing at the spot with a "In a scene" bubble.
+Story scenes are always solo. Party members don't share scenes, even on the same line and chapter. Other players see someone in a scene standing at the spot with an "In a scene" bubble. Parties do everything else together: grinding, the raid, and Team Runway.
 
 ## 3. Parties
 
-- 1 to 4 players. Invite from the party panel or by walking up and pressing Invite.
+- 1 to 4 players, and the raid uses the same limit. Invite from the party panel or by walking up and pressing Invite.
 - Each player keeps their own line and chapter. A Sub 5 Noob in chapter 2 can party with a Top Blox in chapter 5.
 - The party panel shows names, line, chapter, and Raid Ready or Not Ready. It never shows stats, tiers, or scars.
 
@@ -88,6 +91,13 @@ New `StoryData` hooks needed later: an `extraBonus` argument on `ApplyAction` (G
 - Win or lose, everyone gets Friends. Wins give cosmetic rewards: Crown colors, walk trails, and a Runway Champion title per NPC beaten.
 - Never player against player. No crowd voting, no "who looked best," no leaderboard of avatars. A leaderboard, if added, ranks teams by NPCs beaten and fastest clear only.
 
+### Weekly Rival
+
+- One NPC is the Weekly Rival. It rotates every Monday at 00:00 UTC through a fixed list: Tyler, Dax Velour, Shawn O'Pixel, Jordan Bloxett.
+- The rival comes from the week number (Unix time divided by one week, then modulo the list length), so every server shows the same rival with no extra data.
+- Each week has its own limited-time Crown color for beating that rival. Once the week ends, that color is gone until the rival comes back around.
+- The Weekly Rival walks harder than its normal version, and the hub shows a banner with the rival and days left.
+
 ## 7. Safety rules
 
 These rules keep the game away from harassment reports, the most common takedown reason.
@@ -111,17 +121,20 @@ These rules keep the game away from harassment reports, the most common takedown
 
 | Milestone | Scope | Done when |
 |---|---|---|
-| M1 Server runs | Move single-player runs to the server: RunService, SaveService, StoreService, RemoteEvents, basic UI. One player per server is fine. | A full run saves, loads, and finishes on the server. Store purchases work in Studio test mode. |
+| M1 Server runs | Move single-player runs to the server: RunService, SaveService, StoreService, CodeService, RemoteEvents, basic UI with a Codes button in the store menu. One player per server is fine. | A full run saves, loads, and finishes on the server. Store purchases work in Studio test mode. |
 | M2 Hub and parties | The town map, location-based scenes, PartyService and party panel. | 4 players in one server each play their own line. |
 | M3 Co-op | Gym Spot, Hang Out, Clinic Buddy, plus the two new `StoryData` hooks. | Bonuses apply and respect the caps. Tests cover the farming limits. |
 | M4 Raid | Raid queue, shared HP bars, damage formula, per-player endings. | A mixed party clears the raid, and each player gets their own correct ending. |
 | M5 Team Runway | Rhythm minigame, NPC models, rewards. | Teams beat all three NPCs, and rewards save. |
-| M6 Playtest | Private friends-only test, fix reports, fill in the Content Maturity questionnaire, then go public. | No safety issues in the playtest, and the questionnaire is done. |
+| M6 Playtest and launch | Private friends-only test, fix reports, fill in the Content Maturity questionnaire, then go public. Kai's Story pass stays hidden. | No safety issues in the playtest, and the questionnaire is done. |
+| M7 Kai's Story update | Write Kai's line (5 chapters, his road back after the Stat Exploit wiped him), test it with the same suite, set the KaiStory pass to `Enabled = true`, and announce the update. | Kai's line plays start to finish solo and in parties. Launching it after multiplayer gives returning players a reason to come back. |
 
-## 10. Open questions for kaydnn
+## 10. Decisions
 
-1. Should parties allow players in different chapters to do story scenes together, or only grind, raid, and run events together?
-2. Raid size: keep 1 to 4, or allow up to 6 with harder boss HP?
-3. Should Team Runway have a weekly rotating NPC with a limited-time Crown color?
-4. Should Kai's Story (the fourth line) launch with multiplayer, or before it as a single-player update?
-5. Do you want a daily login reward (for example a free Skip Rest every 24 hours) to help retention and Premium Payouts?
+kaydnn's answers to the open questions:
+
+1. Shared story scenes: no. Scenes stay solo. Parties grind, raid, and run events together.
+2. Raid size: 4 players.
+3. Weekly rotating Team Runway NPC: yes, the Weekly Rival above.
+4. Kai's Story: launches after multiplayer as its own update (M7).
+5. Daily reward: no daily reward. Instead, a code system with the SKIPREST code, once per player, for a free Skip Rest.

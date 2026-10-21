@@ -1117,7 +1117,7 @@ end
 
 -- Saved per player across runs.
 function StoryData.NewProfile()
-	return { LinesBeaten = {}, EndingsSeen = {}, ScarRepairTokens = 0, SkipRestCredits = 0 }
+	return { LinesBeaten = {}, EndingsSeen = {}, ScarRepairTokens = 0, SkipRestCredits = 0, RedeemedCodes = {} }
 end
 
 -- Save a paid product that couldn't apply yet. Scar Repairs join the free tokens.
@@ -1166,6 +1166,40 @@ function StoryData.UseScarRepairToken(profile, run, statId)
 	profile.ScarRepairTokens = profile.ScarRepairTokens - 1
 	repairScar(run, statId)
 	return true
+end
+
+-- Profile fields a code is allowed to reward.
+local CODE_REWARDS = { SkipRestCredits = true, ScarRepairTokens = true }
+local MAX_CODE_LENGTH = 32
+
+-- Redeem a code once per player. codes is the server-only table from src/server/Codes.lua.
+-- Returns true plus the code's message, or false plus "Invalid", "Expired" or "AlreadyRedeemed".
+function StoryData.RedeemCode(profile, codes, input, now)
+	if type(input) ~= "string" then
+		return false, "Invalid"
+	end
+	local key = string.upper((string.gsub(input, "%s", "")))
+	if key == "" or #key > MAX_CODE_LENGTH then
+		return false, "Invalid"
+	end
+	local code = codes[key]
+	if not code or not code.Enabled then
+		return false, "Invalid"
+	end
+	if code.ExpiresAt and (not now or now > code.ExpiresAt) then
+		return false, "Expired"
+	end
+	if profile.RedeemedCodes[key] then
+		return false, "AlreadyRedeemed"
+	end
+	for field in pairs(code.Reward) do
+		assert(CODE_REWARDS[field], "Code " .. key .. " has an unknown reward: " .. tostring(field))
+	end
+	for field, amount in pairs(code.Reward) do
+		profile[field] = profile[field] + amount
+	end
+	profile.RedeemedCodes[key] = now or true
+	return true, code.Message
 end
 
 -- Pick an option in the current chapter. Each choice counts once.
